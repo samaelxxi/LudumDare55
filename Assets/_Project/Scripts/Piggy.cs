@@ -70,7 +70,8 @@ public class Piggy : MonoBehaviour
 
     public void ReceiveNegativeVibes(float damage)
     {
-        Debug.Log($"Piggy received {damage} damage");
+        if (IsScared)
+            return;
         _hp -= damage;
         if (_hp <= 0)
             BeScared();
@@ -94,8 +95,10 @@ public class Piggy : MonoBehaviour
 
     void OnDrawGizmosSelected()
     {
-        if (_currentPath == null || _currentPath.Count == 0 && _currentRoadTile != null)
+        if (_currentPath == null || _currentPath.Count == 0)
         {
+            if (_currentRoadTile == null)
+                return;
             GizmosExtensions.DrawArrow(transform.position, _currentRoadTile.DirectionVector, 2.0f, 1);
             return;
         }

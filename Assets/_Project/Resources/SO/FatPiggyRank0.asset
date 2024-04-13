@@ -17,5 +17,6 @@ MonoBehaviour:
   <Fattiness>k__BackingField: 100
   <Type>k__BackingField: 1
   <Rank>k__BackingField: 0
-  <Sprite>k__BackingField: {fileID: 0}
+  <Sprite>k__BackingField: {fileID: 572526545, guid: a7dce3166cee60f4f9b4457a6cd11a58, type: 3}
+  <Avatar>k__BackingField: {fileID: 572526545, guid: a7dce3166cee60f4f9b4457a6cd11a58, type: 3}
   <UpgradeCost>k__BackingField: 40

@@ -19,10 +19,23 @@ public class PiggyData : ScriptableObject
     [field: SerializeField] public PiggyType Type { get; set; }
     [field: SerializeField] public int Rank { get; set; }
     [field: SerializeField] public Sprite Sprite { get; set; }
+    [field: SerializeField] public Sprite Avatar { get; set; }
     [field: SerializeField] public int UpgradeCost { get; set; }
 
-     public string Name { get; private set; }
+    public string Name { get; private set; }
 
+
+    public void ClonePiggyData(PiggyData data)
+    {
+        Speed = data.Speed;
+        Health = data.Health;
+        Fattiness = data.Fattiness;
+        Type = data.Type;
+        Rank = data.Rank;
+        Sprite = data.Sprite;
+        Avatar = data.Avatar;
+        UpgradeCost = data.UpgradeCost;
+    }
 
     public void SetName(string name)
     {

@@ -26,14 +26,14 @@ public class RoadManager : MonoBehaviour
     public RoadTile GetRoadTileAt(Vector3 position)
     {
         var gridPos = _grid.WorldToCell(position).ToVector2Int();
-        Debug.Log($"Grid position is {gridPos} | {_roadTiles.ContainsKey(gridPos)}");
+        // Debug.Log($"Grid position is {gridPos} | {_roadTiles.ContainsKey(gridPos)}");
         if (_roadTiles.ContainsKey(gridPos))
             return _roadTiles[gridPos];
 
         return null;
     }
 
-    public void SwitchRoadTileAt(Vector3 position)
+    public void TrySwitchRoadTileAt(Vector3 position)
     {
         var roadTile = GetRoadTileAt(position);
         if (roadTile != null && roadTile.IsSwitchable)
@@ -51,6 +51,7 @@ public class RoadManager : MonoBehaviour
                     continue;
                 if (_roadTiles.ContainsKey(neighbourPos))
                 {
+                    Debug.Log($"Switching to {newDirection}");
                     roadTile.SwitchDirection(newDirection);
                     break;
                 }

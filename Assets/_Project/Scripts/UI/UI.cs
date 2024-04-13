@@ -1,41 +1,24 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class UI : MonoBehaviour
 {
+    [SerializeField] SummonMenu _summonMenu;
 
+    public SummonMenu SummonMenu => _summonMenu;
 
-    // Update is called once per frame
-    void Update()
+    public event Action<Vector3> OnMouseClick;
+
+    void Start()
     {
-        var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        InitSummonMenu();
+    }
 
-        // Debug.Log(mousePos);
-        // Debug.Log(Game.Instance.Grid.WorldToCell(mousePos));
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            Debug.Log("Left mouse button clicked");
-            RoadTile roadTile = Game.Instance.RoadManager.GetRoadTileAt(mousePos);
-            if (roadTile != null)
-            {
-                Debug.Log($"Road tile at {mousePos} {roadTile.Position} is switchable: {roadTile.IsSwitchable} and direction: {roadTile.Direction}");
-            }
-            else
-            {
-                Debug.Log("No road tile at this position");
-            }
-        }
-        if (Input.GetMouseButtonDown(1))
-        {
-            Debug.Log("Right mouse button clicked");
-
-            Game.Instance.RoadManager.SwitchRoadTileAt(mousePos);
-        }
-
-
-
-
+    public void InitSummonMenu()
+    {
+        _summonMenu.Init();
     }
 }

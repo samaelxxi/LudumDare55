@@ -78,15 +78,7 @@ public class Player
 
     void ChangePiggyData(PiggyData data, PiggyData newData)
     {
-        Debug.Log($"Changing piggy data from {data.Name} to {newData.Name}");
-        Debug.Log($"Rank: {data.Rank} -> {newData.Rank}");
-        data.Rank = newData.Rank;
-        data.Speed = newData.Speed;
-        data.Health = newData.Health;
-        data.Fattiness = newData.Fattiness;
-        data.Sprite = newData.Sprite;
-        data.UpgradeCost = newData.UpgradeCost;
-        data.Type = newData.Type;
+        data.ClonePiggyData(newData);
     }
 
     public IEnumerable<PiggyData> GetPiggies()

@@ -9,12 +9,13 @@ public class PiggyScarer : MonoBehaviour
     enum AttackType { Default, AOE, Ranged }
 
 
-    [SerializeField] float _damage = 2;
+    [SerializeField] protected float _damage = 20;
     [SerializeField] float _rechargeTime = 1;
     [SerializeField] AttackType _attackType = AttackType.Default;
+    [SerializeField] protected Animator _animator;
 
 
-    List<Piggy> _piggies = new();
+    protected List<Piggy> _piggies = new();
 
     float _lastAttackTime = 0;
 
@@ -30,7 +31,7 @@ public class PiggyScarer : MonoBehaviour
         }
     }
 
-    void Attack()
+    protected virtual void Attack()
     {
         Debug.Log("Attacking");
         switch (_attackType)
@@ -91,7 +92,6 @@ public class PiggyScarer : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Piggy entered");
         if (other.TryGetComponent(out Piggy piggy))
         {
             _piggies.Add(piggy);
@@ -100,7 +100,6 @@ public class PiggyScarer : MonoBehaviour
 
     void OnTriggerExit2D(Collider2D other)
     {
-        Debug.Log("Piggy exited");
         if (other.TryGetComponent(out Piggy piggy))
         {
             _piggies.Remove(piggy);

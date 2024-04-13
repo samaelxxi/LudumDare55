@@ -31,7 +31,7 @@ public class PiggyCard : MonoBehaviour
         Debug.Log($"Setting data for {data.Name}");
         _data = data;
 
-        _avatar.sprite = _data.Sprite;
+        _avatar.sprite = _data.Avatar;
         _nameText.text = _data.Name;
         // _rankText.text = _data.Rank.ToString();
         _healthText.text = _data.Health.ToString();
