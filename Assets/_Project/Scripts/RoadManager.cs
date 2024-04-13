@@ -1,0 +1,117 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Tilemaps;
+
+public class RoadManager : MonoBehaviour
+{
+    [SerializeField] Grid _grid;
+
+    Dictionary<Vector2Int, RoadTile> _roadTiles = new();
+
+    void Awake()
+    {
+        foreach (var tile in transform.GetComponentsInChildren<RoadTile>())
+        {
+            var tilePos = tile.transform.position;
+            var gridPos = _grid.WorldToCell(tilePos).ToVector2Int();
+            _roadTiles[gridPos] = tile;
+            tile.SetPosition(gridPos);
+            var goodPos = _grid.CellToWorld(gridPos.ToVector3Int()) + new Vector3(2, 2, 0.0f);
+            tile.transform.position = goodPos;  // snap to grid
+            // Debug.Log($"Tile at {tilePos} is at grid position {gridPos} {_grid.CellToWorld(gridPos.ToVector3Int())}");
+        }
+    }
+
+    public RoadTile GetRoadTileAt(Vector3 position)
+    {
+        var gridPos = _grid.WorldToCell(position).ToVector2Int();
+        Debug.Log($"Grid position is {gridPos} | {_roadTiles.ContainsKey(gridPos)}");
+        if (_roadTiles.ContainsKey(gridPos))
+            return _roadTiles[gridPos];
+
+        return null;
+    }
+
+    public void SwitchRoadTileAt(Vector3 position)
+    {
+        var roadTile = GetRoadTileAt(position);
+        if (roadTile != null && roadTile.IsSwitchable)
+        {
+            for (int i = 1; i < 4; i++)
+            {
+                var newDirection = (RoadTile.RoadDirection) (((int)roadTile.Direction + i) % 4);
+                if (newDirection == RoadTile.RoadDirection.Left)
+                    continue;
+                var neighbourPos = roadTile.Position + RoadTile.Directions[newDirection];
+                var nextTile = GetNeighbour(roadTile, newDirection);
+                if (nextTile == null)
+                    continue;
+                if (GetNeighbour(nextTile, nextTile.Direction) == roadTile)
+                    continue;
+                if (_roadTiles.ContainsKey(neighbourPos))
+                {
+                    roadTile.SwitchDirection(newDirection);
+                    break;
+                }
+            }
+        }
+    }
+
+    public RoadTile GetNeighbour(RoadTile roadTile, RoadTile.RoadDirection direction)
+    {
+        var neighbourPos = roadTile.Position + RoadTile.Directions[direction];
+        if (_roadTiles.ContainsKey(neighbourPos))
+            return _roadTiles[neighbourPos];
+
+        return null;
+    }
+
+    public List<RoadTile> GetPathToEscape(RoadTile startTile)
+    {
+        List<RoadTile> path = new() { startTile };
+
+        // BFS
+        Queue<RoadTile> queue = new();
+        Dictionary<RoadTile, bool> visited = new();
+        Dictionary<RoadTile, RoadTile> previousTile = new();
+        visited[startTile] = true;
+        queue.Enqueue(startTile);
+
+        while (queue.Count > 0)
+        {
+            var currentTile = queue.Dequeue();
+            if (currentTile.IsEscapeTile)
+            {
+                // Trace back the path
+                var pathTile = currentTile;
+                while (pathTile != startTile)
+                {
+                    path.Add(pathTile);
+                    pathTile = previousTile[pathTile];
+                }
+                path.Add(startTile); // Add the start tile to the path
+                path.Reverse(); // Reverse the path to start from the start tile
+                break;
+            }
+
+            foreach (var direction in RoadTile.Directions.Values)
+            {
+                var neighbourPos = currentTile.Position + direction;
+                if (_roadTiles.ContainsKey(neighbourPos))
+                {
+                    var neighbourTile = _roadTiles[neighbourPos];
+                    if (!visited.ContainsKey(neighbourTile))
+                    {
+                        visited[neighbourTile] = true;
+                        queue.Enqueue(neighbourTile);
+                        previousTile[neighbourTile] = currentTile;
+                    }
+                }
+            }
+        }
+
+        return path;
+    }
+}
+
