@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07cf2efe52494d94280f098e446a59da, type: 3}
+  m_Name: PiggyEvolutions
+  m_EditorClassIdentifier: 
+  <Normal>k__BackingField:
+  - {fileID: 11400000, guid: e6331c296c99d8642a9e17111836db42, type: 2}
+  - {fileID: 11400000, guid: 9d71847e2009fa045bad7dcdfaaf819c, type: 2}
+  - {fileID: 11400000, guid: b394d3eb9f35f3241ad106deaa57eae2, type: 2}
+  <Fat>k__BackingField:
+  - {fileID: 11400000, guid: b132ee86b44636f48af6286164f11f6b, type: 2}
+  - {fileID: 11400000, guid: f6e38d08e24b2c64bade56ae2859b699, type: 2}
+  - {fileID: 11400000, guid: b66c55dba2aa8ba46963c96704b61004, type: 2}
+  <Fast>k__BackingField:
+  - {fileID: 11400000, guid: f5d2ddbe9dc011b4a8b81f6fd4eac15d, type: 2}
+  - {fileID: 11400000, guid: 3301c63496d45d14ca286cf950cecffb, type: 2}
+  - {fileID: 11400000, guid: ff1e0e5090b8c4941bd1c72cc4ba3e8f, type: 2}
+  <InitialPiggies>k__BackingField: 8
+  <MakeFatCost>k__BackingField: 25
+  <MakeFastCost>k__BackingField: 25
+  <BasePiggyCost>k__BackingField: 40
+  <ExtraNewPiggyCost>k__BackingField: 5
+  <MaxPiggies>k__BackingField: 15

@@ -25,6 +25,12 @@ public class Piggy : MonoBehaviour
         MoveToCrops();
     }
 
+    public void SetupPiggy(PiggyData data)
+    {
+        _speed = data.Speed;
+        _hp = data.Health;
+    }
+
     void MoveToCrops()
     {
         var nextTile = Game.Instance.RoadManager.GetNeighbour(_currentRoadTile, _currentRoadTile.Direction);
@@ -64,6 +70,7 @@ public class Piggy : MonoBehaviour
 
     public void ReceiveNegativeVibes(float damage)
     {
+        Debug.Log($"Piggy received {damage} damage");
         _hp -= damage;
         if (_hp <= 0)
             BeScared();
@@ -73,6 +80,7 @@ public class Piggy : MonoBehaviour
     {
         IsScared = true;
         _currentPath = Game.Instance.RoadManager.GetPathToEscape(_currentRoadTile);
+        _speed = 10;
         _currentPath.RemoveAt(0); // Remove the current tile from the path
         _moveTween.Kill();
 
@@ -86,7 +94,7 @@ public class Piggy : MonoBehaviour
 
     void OnDrawGizmosSelected()
     {
-        if (_currentPath == null || _currentPath.Count == 0)
+        if (_currentPath == null || _currentPath.Count == 0 && _currentRoadTile != null)
         {
             GizmosExtensions.DrawArrow(transform.position, _currentRoadTile.DirectionVector, 2.0f, 1);
             return;
