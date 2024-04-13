@@ -6,25 +6,18 @@ using UnityEngine;
 [SelectionBase]
 public class PiggyScarer : MonoBehaviour
 {
-    enum AttackType { Default, AOE }
+    enum AttackType { Default, AOE, Ranged }
 
 
-    [SerializeField] float _radius = 10;
     [SerializeField] float _damage = 2;
     [SerializeField] float _rechargeTime = 1;
     [SerializeField] AttackType _attackType = AttackType.Default;
 
-    CircleCollider2D _collider;
 
     List<Piggy> _piggies = new();
 
     float _lastAttackTime = 0;
 
-    void OnValidate()
-    {
-        _collider = GetComponent<CircleCollider2D>();
-        _collider.radius = _radius;
-    }
 
     void Update()
     {
@@ -48,7 +41,27 @@ public class PiggyScarer : MonoBehaviour
             case AttackType.AOE:
                 AttackAOE();
                 break;
+            case AttackType.Ranged:
+                AttackRange();
+                break;
         }
+    }
+
+    void AttackRange()  // TODO remove
+    {
+        // attack closest piggy
+        Piggy closestPiggy = null;
+        float closestDistance = float.MaxValue;
+        foreach (var piggy in _piggies.Where(p => !p.IsScared))
+        {
+            float distance = Vector3.Distance(transform.position, piggy.transform.position);
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestPiggy = piggy;
+            }
+        }
+        closestPiggy.ReceiveNegativeVibes(_damage);
     }
 
     void AttackDefault()
