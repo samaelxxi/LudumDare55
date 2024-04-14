@@ -84,6 +84,16 @@ public class RoadManager : MonoBehaviour
         return null;
     }
 
+    public RoadTile GetNeighbour(Vector2 position, RoadTile.RoadDirection direction)
+    {
+        var intPos = _grid.WorldToCell(position).ToVector2Int();
+        var neighbourPos = intPos + RoadTile.Directions[direction];
+        if (_roadTiles.ContainsKey(neighbourPos))
+            return _roadTiles[neighbourPos];
+
+        return null;
+    }
+
     public List<RoadTile> GetPathToEscape(RoadTile startTile)
     {
         List<RoadTile> path = new() { startTile };

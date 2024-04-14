@@ -82,7 +82,7 @@ public class PiggyScarer : MonoBehaviour
         closestPiggy.ReceiveNegativeVibes(_damage);
     }
 
-    void AttackAOE()
+    protected void AttackAOE()
     {
         foreach (var piggy in _piggies.Where(p => !p.IsScared))
         {
