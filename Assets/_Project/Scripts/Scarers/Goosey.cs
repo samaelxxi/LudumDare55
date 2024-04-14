@@ -13,7 +13,7 @@ public class Goosey : PiggyScarer
 
     protected override void Attack()
     {
-        var targets = _piggies.Where(piggy => !piggy.IsScared);
+        var targets = _piggies.Where(piggy => piggy.CanBeScared);
         Piggy target = targets.ElementAt(Random.Range(0, targets.Count()));
         Vector3 direction = target.transform.position - transform.position;
         _direction = direction;
@@ -63,7 +63,7 @@ public class Goosey : PiggyScarer
             Debug.LogError($"No road tile found for attack on {dir}");
             return;
         }
-        foreach (var piggy in _piggies.Where(p => !p.IsScared))
+        foreach (var piggy in _piggies.Where(p => p.CanBeScared))
             if (roadTile == piggy.CurrentRoadTile)
                 piggy.ReceiveNegativeVibes(_damage);
     }

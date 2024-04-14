@@ -69,6 +69,12 @@ public class Player
         ChangePiggyData(data, upgradedPiggy);
     }
 
+    public void ReceiveCorn(int amount)
+    {
+        Corn += amount;
+        OnCornChanged?.Invoke(Corn);
+    }
+
     void SpendCorn(int amount)
     {
         Corn -= amount;

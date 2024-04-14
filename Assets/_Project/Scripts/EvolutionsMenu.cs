@@ -5,6 +5,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using System;
+using Random = UnityEngine.Random;
 
 
 public class EvolutionsMenu : MonoBehaviour
@@ -21,6 +23,7 @@ public class EvolutionsMenu : MonoBehaviour
     List<PeacefulPiggy> _piggies = new();
     PeacefulPiggy _selectedPiggy;
 
+    public event Action OnEvolutionsEnd;
 
     void Start()
     {
@@ -32,24 +35,31 @@ public class EvolutionsMenu : MonoBehaviour
 
         if (Game.Instance.PiggiesQuantity == Game.Instance.PiggyEvolutions.MaxPiggies)
             _buyNewPiggyButton.interactable = false;
+
+        Game.Instance.OnMouseClick += OnMouseClick;
+    }
+
+    void OnDestroy()
+    {
+        Game.Instance.OnMouseClick -= OnMouseClick;
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(0))
-        {
-            var mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Debug.Log($"Mouse clicked at {mousePos}");
-            var probablyPiggy = Physics2D.OverlapCircle(mousePos, 0.5f, LayerMask.GetMask("Piggy"));
-            Debug.Log($"Probably piggy: {probablyPiggy}");
-            if (probablyPiggy != null && probablyPiggy.TryGetComponent<PeacefulPiggy>(out var reallyPiggy))
-            {
-                _piggyCard.SetData(reallyPiggy.Data);
-                _selectedPiggy = reallyPiggy;
-                Debug.Log($"Piggy clicked: {probablyPiggy.name}");
-            }
-        }
         _selectedArrow.transform.position = _selectedPiggy.transform.position + Vector3.up * 3;
+    }
+
+    public void OnMouseClick(Vector3 mousePos)
+    {
+        Debug.Log($"Mouse clicked at {mousePos}");
+        var probablyPiggy = Physics2D.OverlapCircle(mousePos, 0.5f, LayerMask.GetMask("Piggy"));
+        Debug.Log($"Probably piggy: {probablyPiggy}");
+        if (probablyPiggy != null && probablyPiggy.TryGetComponent<PeacefulPiggy>(out var reallyPiggy))
+        {
+            _piggyCard.SetData(reallyPiggy.Data);
+            _selectedPiggy = reallyPiggy;
+            Debug.Log($"Piggy clicked: {probablyPiggy.name}");
+        }
     }
 
     void SelectPiggy(PeacefulPiggy piggy)
@@ -57,7 +67,6 @@ public class EvolutionsMenu : MonoBehaviour
         _piggyCard.SetData(piggy.Data);
         _selectedPiggy = piggy;
     }
-
 
     void CreatePeacefulPiggies()
     {
@@ -84,6 +93,11 @@ public class EvolutionsMenu : MonoBehaviour
         }
         var piggy = Instantiate(_piggyPrefab, position, Quaternion.identity, _piggiesHome.transform);
         return piggy;
+    }
+
+    public void EndEvolutions()
+    {
+        OnEvolutionsEnd?.Invoke();
     }
 
     public void BuyNewPiggy()

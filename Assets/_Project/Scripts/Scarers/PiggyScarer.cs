@@ -22,7 +22,7 @@ public class PiggyScarer : MonoBehaviour
 
     void Update()
     {
-        if (_piggies.Where(piggy => !piggy.IsScared).Count() == 0) return;
+        if (_piggies.Where(piggy => piggy.CanBeScared).Count() == 0) return;
 
         if (_lastAttackTime + _rechargeTime < Time.time)
         {
@@ -53,7 +53,7 @@ public class PiggyScarer : MonoBehaviour
         // attack closest piggy
         Piggy closestPiggy = null;
         float closestDistance = float.MaxValue;
-        foreach (var piggy in _piggies.Where(p => !p.IsScared))
+        foreach (var piggy in _piggies.Where(p => p.CanBeScared))
         {
             float distance = Vector3.Distance(transform.position, piggy.transform.position);
             if (distance < closestDistance)
@@ -70,7 +70,7 @@ public class PiggyScarer : MonoBehaviour
         // attack closest piggy
         Piggy closestPiggy = null;
         float closestDistance = float.MaxValue;
-        foreach (var piggy in _piggies.Where(p => !p.IsScared))
+        foreach (var piggy in _piggies.Where(p => p.CanBeScared))
         {
             float distance = Vector3.Distance(transform.position, piggy.transform.position);
             if (distance < closestDistance)
@@ -84,7 +84,7 @@ public class PiggyScarer : MonoBehaviour
 
     protected void AttackAOE()
     {
-        foreach (var piggy in _piggies.Where(p => !p.IsScared))
+        foreach (var piggy in _piggies.Where(p => p.CanBeScared))
         {
             piggy.ReceiveNegativeVibes(_damage);
         }

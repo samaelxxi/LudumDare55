@@ -4,12 +4,14 @@ using UnityEngine;
 using DG.Tweening;
 using UnityEditor;
 using System;
+using Random = UnityEngine.Random;
 
 [SelectionBase]
 public class Piggy : MonoBehaviour
 {
     [SerializeField] float _speed = 1.0f;
     [SerializeField] float _hp = 100.0f;
+    [SerializeField] int _foodCapacity = 20;
 
     [SerializeField] SpriteRenderer _spriteRenderer;
 
@@ -18,10 +20,16 @@ public class Piggy : MonoBehaviour
 
     public RoadTile CurrentRoadTile => _currentRoadTile;
 
-    public bool IsScared { get; private set; }
+    public bool CanBeScared => !_isScared && !_isEating;
+    public bool IsGotSomeFood => _isEating;
+    public bool IsFinishedHarvesting => _isEating || _isScared;
+
     List<RoadTile> _currentPath;
 
     Tweener _moveTween;
+
+    bool _isScared = false;
+    bool _isEating = false;
 
     void Start()
     {
@@ -33,11 +41,17 @@ public class Piggy : MonoBehaviour
     {
         _speed = data.Speed;
         _hp = data.Health;
+        _foodCapacity = data.FoodCapacity;
     }
 
     void MoveToCrops()
     {
         var nextTile = Game.Instance.RoadManager.GetNeighbour(_currentRoadTile, _currentRoadTile.Direction);
+        if (nextTile == null)
+        {
+            Debug.Log("Piggy can't find the next tile :(");
+            return;
+        }
         nextTile.VisitTile();
         _previousRoadTile = _currentRoadTile;
         _currentRoadTile = nextTile;
@@ -74,7 +88,7 @@ public class Piggy : MonoBehaviour
 
     public void ReceiveNegativeVibes(float damage)
     {
-        if (IsScared)
+        if (!CanBeScared)
             return;
         _hp -= damage;
         if (_hp <= 0)
@@ -83,7 +97,7 @@ public class Piggy : MonoBehaviour
 
     void BeScared()
     {
-        IsScared = true;
+        _isScared = true;
         _currentPath = Game.Instance.RoadManager.GetPathToEscape(_currentRoadTile);
         _speed = 8;
         _currentPath.RemoveAt(0); // Remove the current tile from the path
@@ -93,9 +107,38 @@ public class Piggy : MonoBehaviour
         GoAlongPath();
     }
 
+    void OnTriggerEnter2D(UnityEngine.Collider2D collision)
+    {
+        if (collision.TryGetComponent(out PiggyEndZone endZone))
+        {
+            _moveTween.Kill();
+            var newPos = endZone.GetFreePosition();
+            _isEating = true;
+            transform.DOMove(newPos, Vector3.Distance(transform.position, newPos) / _speed)
+                .SetEase(Ease.Linear).OnComplete(() => StartCoroutine(StartEating()));
+        }
+    }
+
+    IEnumerator StartEating()
+    {
+        Game.Instance.PiggyGotSomeFood(_foodCapacity);
+        Debug.Log("Start eating");
+        while (true)
+        {
+            yield return new WaitForSeconds(Random.Range(1.0f, 5.0f));
+            if (Random.value > 0.5f)
+                _spriteRenderer.flipX = !_spriteRenderer.flipX;
+            else
+                transform.DOLocalJump(transform.position, 0.5f, 1, 0.5f).SetEase(Ease.Linear);
+        }
+    }
+
     void RunAway()
     {
-        Destroy(gameObject);
+        transform.DOMove(transform.position - Vector3.left * 2, 1).OnComplete(delegate
+        {
+            Destroy(gameObject);
+        });
     }
 
     void OnDrawGizmosSelected()
