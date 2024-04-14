@@ -14,6 +14,8 @@ public class Piggy : MonoBehaviour
     RoadTile _previousRoadTile;
     RoadTile _currentRoadTile;
 
+    public RoadTile CurrentRoadTile => _currentRoadTile;
+
     public bool IsScared { get; private set; }
     List<RoadTile> _currentPath;
 
