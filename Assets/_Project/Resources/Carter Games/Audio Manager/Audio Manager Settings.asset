@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c0e439ce154b29540a50a86b406e77fe, type: 3}
   m_Name: Audio Manager Settings
   m_EditorClassIdentifier: 
-  baseAudioScanPath: Assets
+  baseAudioScanPath: Assets/_Project/Audio
   isUsingStatic: 0
   showDebugMessages: 1

@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using CarterGames.Assets.AudioManager;
 using DesignPatterns.Singleton;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -26,6 +27,8 @@ public class Game : Singleton<Game>
     Player _player;
     Level _level;
     EvolutionsMenu _evolutionsMenu;
+    [SerializeField] AudioManager _audioManager;
+    public AudioManager AudioManager => _audioManager;
 
 
     public event Action<Vector3> OnMouseClick;
@@ -55,6 +58,15 @@ public class Game : Singleton<Game>
             return;
         if (PiggyEvolutions == null)
             PiggyEvolutions = Resources.Load<PiggyEvolutions>("SO/PiggyEvolutions");
+        if (_audioManager == null)
+        {
+            Debug.Log("Loading audio manager");
+            _audioManager = FindAnyObjectByType<AudioManager>();
+            if (_audioManager == null)
+                _audioManager = Resources.Load<AudioManager>("AudioManager");
+            // _audioManager = Resources.Load<AudioManager>("AudioManager");
+            Debug.Log("Loaded audio manager" + _audioManager.name);
+        }
 
         _player = new Player(PiggyEvolutions.Normal[0], PiggyEvolutions.InitialPiggies);
         InitTestPigs();
@@ -64,6 +76,11 @@ public class Game : Singleton<Game>
 
         DetectLevelsNumber();
         IsAwaken = true;
+    }
+
+    void Start()
+    {
+        _audioManager = FindObjectOfType<AudioManager>();
     }
 
     void DetectLevelsNumber()

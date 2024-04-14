@@ -25,6 +25,9 @@ public class EvolutionsMenu : MonoBehaviour
 
     public event Action OnEvolutionsEnd;
 
+    // static List<string>  = new string[3] { "Click_01",  "Click_02", "Click_03" };
+
+
     void Start()
     {
         CreatePeacefulPiggies();
@@ -58,6 +61,8 @@ public class EvolutionsMenu : MonoBehaviour
         {
             _piggyCard.SetData(reallyPiggy.Data);
             _selectedPiggy = reallyPiggy;
+            Log.Info($"Piggy clicked: {reallyPiggy.name} {Game.Instance.AudioManager}");
+            Game.Instance.AudioManager.PlayRange(Oinks.GetOinks(_selectedPiggy.Data.Type, _selectedPiggy.Data.Rank));
             // Debug.Log($"Piggy clicked: {probablyPiggy.name}");
         }
     }
@@ -113,6 +118,7 @@ public class EvolutionsMenu : MonoBehaviour
             if (Game.Instance.PiggiesQuantity == Game.Instance.PiggyEvolutions.MaxPiggies)
                 _buyNewPiggyButton.interactable = false;
             _newPiggyCostText.text = Game.Instance.NewPiggyCost.ToString();
+            Game.Instance.AudioManager.PlayRange(Oinks.GetOinks(PiggyType.Normal, 0));
         }
         else
             Debug.Log("Not enough corn or a lot piggies");
@@ -130,9 +136,11 @@ public class EvolutionsMenu : MonoBehaviour
             _piggyCard.SetData(_selectedPiggy.Data);
             _selectedPiggy.UpdateData();
             Log.Info("Rank upgraded");
+            Game.Instance.AudioManager.Play(Oinks.GetUpgradeOink(_selectedPiggy.Data.Type, _selectedPiggy.Data.Rank));
         }
         else
             Debug.Log("Not enough corn");
+        
     }
 
     public void MakeFat()
@@ -144,6 +152,7 @@ public class EvolutionsMenu : MonoBehaviour
             Game.Instance.ChangePiggyType(_selectedPiggy.Data, PiggyType.Fat);
             _piggyCard.SetData(_selectedPiggy.Data);
             _selectedPiggy.UpdateData();
+            Game.Instance.AudioManager.Play(Oinks.GetUpgradeOink(_selectedPiggy.Data.Type, _selectedPiggy.Data.Rank));
         }
         else
             Debug.Log("Not enough corn");
@@ -160,6 +169,7 @@ public class EvolutionsMenu : MonoBehaviour
             Debug.Log($"Changing piggy type to fast {_selectedPiggy.Data.Speed}");
             _piggyCard.SetData(_selectedPiggy.Data);
             _selectedPiggy.UpdateData();
+            Game.Instance.AudioManager.Play(Oinks.GetUpgradeOink(_selectedPiggy.Data.Type, _selectedPiggy.Data.Rank));
         }
         else
             Debug.Log("Not enough corn");

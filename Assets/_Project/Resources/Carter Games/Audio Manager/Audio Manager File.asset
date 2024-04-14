@@ -12,11 +12,62 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19ae0c8eafd7263429865ae0f6fe29e6, type: 3}
   m_Name: Audio Manager File
   m_EditorClassIdentifier: 
-  tabPos: 0
+  tabPos: 1
   audioMixer:
   - {fileID: 0}
   soundPrefab: {fileID: 322064603624763291, guid: f97cb5ab9dca8bd488116e0ffc057e10, type: 3}
-  isPopulated: 0
+  isPopulated: 1
   directory:
   - Assets/_Project/Audio
-  library: []
+  - Assets/_Project/Audio/Sounds/Oinks
+  library:
+  - key: defaultUpgrade2
+    value: {fileID: 8300000, guid: 066b3f2b642544c45a9d3ca8fd8dda71, type: 3}
+  - key: defaultUpgrade3
+    value: {fileID: 8300000, guid: 762748dc2c983e14ab2aa513328cbf70, type: 3}
+  - key: fast1Oink1
+    value: {fileID: 8300000, guid: 4daac6a8916b74e489f894675f0e1e85, type: 3}
+  - key: fast1Oink2
+    value: {fileID: 8300000, guid: 91e740bd3c111a64198f6a884cd3e511, type: 3}
+  - key: fast2Oink1
+    value: {fileID: 8300000, guid: 19c7643248d10804eae5b972984841f9, type: 3}
+  - key: fast2Oink2
+    value: {fileID: 8300000, guid: f55522c03f755a64b90f4c7581b3e77b, type: 3}
+  - key: fast3Oink1
+    value: {fileID: 8300000, guid: 42d0c05f82546cc47a516bc1b3dda217, type: 3}
+  - key: fast3Oink2
+    value: {fileID: 8300000, guid: eb74c0456ea6e31478db14ffecc53902, type: 3}
+  - key: fastUpgrade1
+    value: {fileID: 8300000, guid: 3820677d9ee322d4db6e556a924e81c9, type: 3}
+  - key: fastUpgrade2
+    value: {fileID: 8300000, guid: 4654040444d83d04badaf7fa3a6449a5, type: 3}
+  - key: fastUpgrade3
+    value: {fileID: 8300000, guid: 5944973d4dfa8814da0cae23cfde1f82, type: 3}
+  - key: fat1Oink1
+    value: {fileID: 8300000, guid: 966788e647fd2c74e82d9db09440536b, type: 3}
+  - key: fat1Oink2
+    value: {fileID: 8300000, guid: 709174bd4b54cc1439cbfade5f69226e, type: 3}
+  - key: fat2Oink1
+    value: {fileID: 8300000, guid: 7b5278a1d28fc9a4088205424cead428, type: 3}
+  - key: fat2Oink2
+    value: {fileID: 8300000, guid: e71be853ddd7b4f478498f2d852ff7f5, type: 3}
+  - key: fat3Oink1
+    value: {fileID: 8300000, guid: 63d0e6bb0d9d2a949900335cf5e80445, type: 3}
+  - key: fat3Oink2
+    value: {fileID: 8300000, guid: f5b315797f169ee4aa54d40f0e4ace9f, type: 3}
+  - key: fatUpgrade1
+    value: {fileID: 8300000, guid: 293d136eddf63984fa6a9b37a7e3b57b, type: 3}
+  - key: fatUpgrade2
+    value: {fileID: 8300000, guid: 098a1e49444e8014e83c813f286d35f6, type: 3}
+  - key: fatUpgrade3
+    value: {fileID: 8300000, guid: 13e3bd7641b04b544ad0798c76638016, type: 3}
+  - key: smallOink
+    value: {fileID: 8300000, guid: 850ccded9730f704c8ab664345c668e7, type: 3}
+  - key: smallOink2
+    value: {fileID: 8300000, guid: bd1a5ebdae5042a45b69dddccf2a7f6e, type: 3}
+  - key: smallOink3
+    value: {fileID: 8300000, guid: e349843d7facd5e40bb3118ff03d2efb, type: 3}
+  - key: smallOink34
+    value: {fileID: 8300000, guid: 21e2d4c6d86759a419de953d598d5900, type: 3}
+  - key: smallOink35
+    value: {fileID: 8300000, guid: 99d9c68ae43b45b43b43b0a7b1b33431, type: 3}

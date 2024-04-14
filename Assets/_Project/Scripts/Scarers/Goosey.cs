@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using CarterGames.Assets.AudioManager;
 using UnityEngine;
+using CarterGames;
 
 [SelectionBase]
 public class Goosey : PiggyScarer
@@ -13,6 +15,7 @@ public class Goosey : PiggyScarer
 
     protected override void Attack()
     {
+        
         var targets = _piggies.Where(piggy => piggy.CanBeScared);
         Piggy target = targets.ElementAt(Random.Range(0, targets.Count()));
         Vector3 direction = target.transform.position - transform.position;
@@ -50,6 +53,7 @@ public class Goosey : PiggyScarer
             _slamVFX.SetActive(true);
             _slamAnimator.Play("Slam", 0, 0);
             _slamVFX.transform.position = transform.position + RoadTile.Directions[dir].ToVector3();
+            Game.Instance.AudioManager.Play("Quack1");
             DamageAllOnTile(dir);
         });
     }
