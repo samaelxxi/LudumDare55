@@ -2,12 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
+using DG.Tweening;
 
 public class SummonPoint : MonoBehaviour
 {
     [SerializeField] Piggy _piggyPrefab;
     [SerializeField] float _summonCooldown = 1;
-    [SerializeField] SpriteRenderer _chosenSprite;
+    [SerializeField] Animator _animator;
 
     Queue<PiggyData> _summonQueue = new();
 
@@ -15,7 +16,7 @@ public class SummonPoint : MonoBehaviour
 
     void Awake()
     {
-        _chosenSprite.enabled = false;
+        _animator = GetComponent<Animator>();
     }
 
     public void AddToSummonQueue(PiggyData data)
@@ -25,17 +26,17 @@ public class SummonPoint : MonoBehaviour
 
     public void BeChosen()
     {
-        _chosenSprite.enabled = true;
+        _animator.SetBool("IsActive", true);
     }
 
     public void BeUnchosen()
     {
-        _chosenSprite.enabled = false;
+        _animator.SetBool("IsActive", false);
     }
 
     void Update()
     {
-        if (Time.time - _lastSummonTime > _summonCooldown && _summonQueue.Count > 0)
+        if (_summonQueue.Count > 0 && Time.time - _lastSummonTime > _summonCooldown)
         {
             _lastSummonTime = Time.time;
             SummonPiggy();
@@ -49,7 +50,13 @@ public class SummonPoint : MonoBehaviour
 
         var data = _summonQueue.Dequeue();
         var piggy = Instantiate(_piggyPrefab, transform.position, Quaternion.identity);
+        piggy.enabled = false;
         piggy.SetupPiggy(data);
+        piggy.transform.localScale = Vector3.zero;
+        piggy.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack).OnComplete(() => piggy.transform.DOShakeScale(0.5f, 0.5f));
+        piggy.transform.DOShakeRotation(1, new Vector3(0, 0, Random.Range(30, 60) * (Random.value > 0.3f ? 1 : -1)), 
+                1, randomnessMode:ShakeRandomnessMode.Harmonic).OnComplete(() => piggy.enabled = true);
+        piggy.transform.DOJump(piggy.transform.position, 1, 1, 1);
         Game.Instance.Level.AddHungryPiggy(piggy);
     }
 }
