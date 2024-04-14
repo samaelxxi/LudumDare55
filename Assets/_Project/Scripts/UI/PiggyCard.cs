@@ -28,7 +28,7 @@ public class PiggyCard : MonoBehaviour
 
     public void SetData(PiggyData data)
     {
-        Debug.Log($"Setting data for {data.Name}");
+        // Debug.Log($"Setting data for {data.Name}");
         _data = data;
 
         _avatar.sprite = _data.Avatar;
@@ -40,10 +40,10 @@ public class PiggyCard : MonoBehaviour
 
         _upgradeCostText.text = _data.UpgradeCost.ToString();
 
-        Debug.Log($"Type: {_data.Type}, Rank: {_data.Rank}");
+        // Debug.Log($"Type: {_data.Type}, Rank: {_data.Rank}");
         if (data.Type == PiggyType.Normal && data.Rank == 0)
         {
-            Debug.Log("Normal rank 0");
+            // Debug.Log("Normal rank 0");
             _makeFatButton.interactable = true;
             _makeFastButton.interactable = true;
             _makeFatCostText.text = Game.Instance.PiggyEvolutions.MakeFatCost.ToString();
@@ -51,7 +51,7 @@ public class PiggyCard : MonoBehaviour
         }
         else
         {
-            Debug.Log("Not normal rank 0");
+            // Debug.Log("Not normal rank 0");
             _makeFatCostText.text = "";
             _makeFastCostText.text = "";
             _makeFatButton.interactable = false;

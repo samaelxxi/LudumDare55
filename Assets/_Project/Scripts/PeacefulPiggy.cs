@@ -16,9 +16,12 @@ public class PeacefulPiggy : MonoBehaviour
     float _waitTimer;
     bool _isWalking = false;
 
+    Vector3 _targetPos;
+
     public void SetData(PiggyData data)
     {
         _data = data;
+        _spriteRenderer.sprite = data.Sprite;
     }
 
     public void SetWalkArea(BoxCollider2D walkArea)
@@ -26,23 +29,47 @@ public class PeacefulPiggy : MonoBehaviour
         _walkArea = walkArea;
     }
 
+    public void UpdateData()
+    {
+        SetData(_data);
+    }
+
     void Start()
     {
         _waitTimer = Random.Range(3.0f, 8.0f);
+        _spriteRenderer.flipX = Random.Range(0, 2) == 0;
     }
 
     void Update()
     {
         if (!_isWalking)
-            _waitTimer -= Time.deltaTime;
-        if (_waitTimer <= 0)
         {
-            _waitTimer = Random.Range(10, 15.0f);
-            MoveSomewhere();
+            _waitTimer -= Time.deltaTime;
+            if (_waitTimer <= 0)
+                ChooseMoveTarget();
         }
+        else
+            Move();
+
+        transform.position = transform.position.SetZ(transform.position.y);
     }
 
-    void MoveSomewhere()
+    void Move()
+    {
+        var ds = _data.Speed * Time.deltaTime;
+        var direction = _targetPos - transform.position;
+        float distance = Vector3.Distance(transform.position.SetZ(0), _targetPos.SetZ(0));
+        if (distance < ds)
+        {
+            _isWalking = false;
+            _waitTimer = Random.Range(7, 15.0f);
+            return;
+        }
+        transform.position += ds * direction.SetZ(0).normalized;
+    }
+
+
+    void ChooseMoveTarget()
     {
         Vector3 randomPos = default;
         int i = 0;
@@ -58,6 +85,9 @@ public class PeacefulPiggy : MonoBehaviour
         var newPos = transform.position + Mathf.Min(distance, 8) * direction.normalized;
         if (Physics2D.OverlapCircle(newPos, 0.5f, LayerMask.GetMask("Piggy")) != null)
             newPos = randomPos;
-        transform.DOMove(newPos, distance / 3).OnComplete(() => _isWalking = false);
+        _targetPos = newPos;
+        _isWalking = true;
+
+        _spriteRenderer.flipX = direction.x > 0;
     }
 }

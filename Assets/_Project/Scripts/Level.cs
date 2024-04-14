@@ -37,12 +37,21 @@ public class Level : MonoBehaviour
 
         Game.Instance.OnMouseClick += OnMouseClick;
         Game.Instance.OnCornChanged += PiggyGotSomeFood;
+        Game.Instance.OnKeyNumberPressed += KeyNumberPressed;
     }
 
     void OnDestroy()
     {
+        Debug.Log("Level destroyed");
         Game.Instance.OnMouseClick -= OnMouseClick;
         Game.Instance.OnCornChanged -= PiggyGotSomeFood;
+        Game.Instance.OnKeyNumberPressed -= KeyNumberPressed;
+    }
+
+    void KeyNumberPressed(int number)
+    {
+        if (number >= 1 && number <= _summonPoints.Length)
+            ChooseSummonPoint(_summonPoints[number - 1]);
     }
 
     void Update()
@@ -51,7 +60,6 @@ public class Level : MonoBehaviour
         {
             _goingToEndWindow = true;
             this.InSeconds(2, ShowEndWindow);
-            
         }
     }
 
@@ -99,12 +107,16 @@ public class Level : MonoBehaviour
         if (summonPointCollider == null)
             return;
         if (summonPointCollider.TryGetComponent<SummonPoint>( out var summonPoint ) )
-        {
-            if (_chosenSummonPoint != null)
-                _chosenSummonPoint.BeUnchosen();
-            _chosenSummonPoint = summonPoint;
-            _chosenSummonPoint.BeChosen();
-        }
+            ChooseSummonPoint(summonPoint);
+    }
+
+    void ChooseSummonPoint(SummonPoint summonPoint)
+    {
+        // Debug.Log("Chosen summon point");
+        if (_chosenSummonPoint != null)
+            _chosenSummonPoint.BeUnchosen();
+        _chosenSummonPoint = summonPoint;
+        _chosenSummonPoint.BeChosen();
     }
 
     void LevelMouseClick(Vector3 worldPosition)

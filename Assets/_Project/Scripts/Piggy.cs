@@ -13,7 +13,11 @@ public class Piggy : MonoBehaviour
     [SerializeField] float _hp = 100.0f;
     [SerializeField] int _foodCapacity = 20;
 
+    [SerializeField] float _spriteYOffset = 0.2f;
+
     [SerializeField] SpriteRenderer _spriteRenderer;
+    [SerializeField] AnimationCurve _jumpCurve;
+    [SerializeField] float _smoothTime = 0.3f;
 
     RoadTile _previousRoadTile;
     RoadTile _currentRoadTile;
@@ -30,11 +34,31 @@ public class Piggy : MonoBehaviour
 
     bool _isScared = false;
     bool _isEating = false;
+    bool _shouldJump = false;
+    float _jumpTime = 0;
 
     void Start()
     {
         _currentRoadTile = Game.Instance.RoadManager.GetRoadTileAt(transform.position);
         MoveToCrops();
+        _shouldJump = true;
+    }
+
+
+    void Update()
+    {
+        if (_shouldJump)
+        {
+            _jumpTime += Time.deltaTime;
+            float jumpLength = 1 / _speed;
+            float jumpHeight = jumpLength - 0.1f;
+            float y = _jumpCurve.Evaluate(_jumpTime / jumpLength);
+            var newPos = _spriteRenderer.transform.localPosition.SetY(y * jumpHeight + _spriteYOffset);
+            _spriteRenderer.transform.localPosition = Vector3.Lerp(_spriteRenderer.transform.localPosition, newPos, _smoothTime);
+            _spriteRenderer.transform.position = _spriteRenderer.transform.position.SetZ(transform.position.y);
+            if (_jumpTime >= jumpLength)
+                _jumpTime = 0;
+        }
     }
 
     public void SetupPiggy(PiggyData data)
@@ -42,6 +66,7 @@ public class Piggy : MonoBehaviour
         _speed = data.Speed;
         _hp = data.Health;
         _foodCapacity = data.FoodCapacity;
+        _spriteRenderer.sprite = data.Sprite;
     }
 
     void MoveToCrops()
@@ -107,7 +132,7 @@ public class Piggy : MonoBehaviour
         GoAlongPath();
     }
 
-    void OnTriggerEnter2D(UnityEngine.Collider2D collision)
+    void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.TryGetComponent(out PiggyEndZone endZone))
         {
@@ -121,10 +146,12 @@ public class Piggy : MonoBehaviour
 
     IEnumerator StartEating()
     {
+        _spriteRenderer.transform.position = _spriteRenderer.transform.position.SetZ(_spriteRenderer.transform.position.y);
         Game.Instance.PiggyGotSomeFood(_foodCapacity);
-        Debug.Log("Start eating");
+        // Debug.Log("Start eating");
         while (true)
         {
+            _shouldJump = false;
             yield return new WaitForSeconds(Random.Range(1.0f, 5.0f));
             if (Random.value > 0.5f)
                 _spriteRenderer.flipX = !_spriteRenderer.flipX;

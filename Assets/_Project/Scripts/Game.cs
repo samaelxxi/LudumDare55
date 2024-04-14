@@ -29,7 +29,9 @@ public class Game : Singleton<Game>
 
 
     public event Action<Vector3> OnMouseClick;
+    public event Action<int> OnKeyNumberPressed;
 
+    public bool IsAwaken = false;
 
     enum GameState { Harvest, Upgrade, Menu }
 
@@ -45,17 +47,23 @@ public class Game : Singleton<Game>
 
     public override void Awake()
     {
+        // Debug.Log("Game awake" + gameObject.name);
         base.Awake();
+        gameObject.name = "PiggyHarvest";
+
+        if (Game.Instance.IsAwaken)
+            return;
         if (PiggyEvolutions == null)
             PiggyEvolutions = Resources.Load<PiggyEvolutions>("SO/PiggyEvolutions");
 
         _player = new Player(PiggyEvolutions.Normal[0], PiggyEvolutions.InitialPiggies);
         InitTestPigs();
         
+        // Debug.Log("Game awake 2" + gameObject.name);
         SceneManager.sceneLoaded += (scene, mode) => OnSceneLoaded();
-        OnSceneLoaded();
 
         DetectLevelsNumber();
+        IsAwaken = true;
     }
 
     void DetectLevelsNumber()
@@ -105,8 +113,9 @@ public class Game : Singleton<Game>
         _player.UpgradePiggyRank(_player.GetPiggies().ElementAt(8));
     }
 
-    void StartLevel(bool awaken = false)
+    void StartLevel()
     {
+        Debug.Log("Starting level");
         _level = FindFirstObjectByType<Level>();
         _level.OnLevelCompleted += CompleteLevel;
         _currentLevel = int.Parse(SceneManager.GetActiveScene().name.Substring(5));
@@ -157,6 +166,12 @@ public class Game : Singleton<Game>
             var worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             OnMouseClick?.Invoke(worldPosition);
         }
+        if (Input.GetKeyDown(KeyCode.Keypad1) || Input.GetKeyDown(KeyCode.Alpha1))
+            OnKeyNumberPressed?.Invoke(1);
+        if (Input.GetKeyDown(KeyCode.Keypad2) || Input.GetKeyDown(KeyCode.Alpha2))
+            OnKeyNumberPressed?.Invoke(2);
+        if (Input.GetKeyDown(KeyCode.Keypad3) || Input.GetKeyDown(KeyCode.Alpha3))
+            OnKeyNumberPressed?.Invoke(3);
     }
 
     public void UpgradePiggyRank(PiggyData piggyData)

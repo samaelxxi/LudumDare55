@@ -17394,14 +17394,6 @@ PrefabInstance:
       propertyPath: m_GravityScale
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 193105645275645665, guid: a2b949879152f424e9693189efb62746, type: 3}
-      propertyPath: _hp
-      value: 200
-      objectReference: {fileID: 0}
-    - target: {fileID: 193105645275645665, guid: a2b949879152f424e9693189efb62746, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 1181548529817115199, guid: a2b949879152f424e9693189efb62746, type: 3}
       propertyPath: m_Layer
       value: 0

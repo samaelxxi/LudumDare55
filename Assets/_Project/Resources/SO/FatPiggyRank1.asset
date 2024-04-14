@@ -15,8 +15,9 @@ MonoBehaviour:
   <Speed>k__BackingField: 2
   <Health>k__BackingField: 200
   <Fattiness>k__BackingField: 140
+  <FoodCapacity>k__BackingField: 30
   <Type>k__BackingField: 1
   <Rank>k__BackingField: 1
-  <Sprite>k__BackingField: {fileID: 250582540, guid: a7dce3166cee60f4f9b4457a6cd11a58, type: 3}
+  <Sprite>k__BackingField: {fileID: -2112423072, guid: 4ed3aa31c458d2940aa68cccacf83dfd, type: 3}
   <Avatar>k__BackingField: {fileID: 2129412306, guid: 91e457751dcc87344ab05774e227471b, type: 3}
   <UpgradeCost>k__BackingField: 75

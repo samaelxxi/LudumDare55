@@ -26,11 +26,13 @@ public class SummonPoint : MonoBehaviour
 
     public void BeChosen()
     {
+        // Debug.Log($"Summon point {name} is chosen");
         _animator.SetBool("IsActive", true);
     }
 
     public void BeUnchosen()
     {
+        // Debug.Log($"Summon point {name} is unchosen");
         _animator.SetBool("IsActive", false);
     }
 
@@ -53,7 +55,7 @@ public class SummonPoint : MonoBehaviour
         piggy.enabled = false;
         piggy.SetupPiggy(data);
         piggy.transform.localScale = Vector3.zero;
-        piggy.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack).OnComplete(() => piggy.transform.DOShakeScale(0.5f, 0.5f));
+        piggy.transform.DOScale(Vector3.one, 0.5f).SetEase(Ease.OutBack).OnComplete(() => piggy.transform.DOShakeScale(0.5f, 0.5f, 5, 40));
         piggy.transform.DOShakeRotation(1, new Vector3(0, 0, Random.Range(30, 60) * (Random.value > 0.3f ? 1 : -1)), 
                 1, randomnessMode:ShakeRandomnessMode.Harmonic).OnComplete(() => piggy.enabled = true);
         piggy.transform.DOJump(piggy.transform.position, 1, 1, 1);

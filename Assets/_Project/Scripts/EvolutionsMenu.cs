@@ -46,19 +46,19 @@ public class EvolutionsMenu : MonoBehaviour
 
     void Update()
     {
-        _selectedArrow.transform.position = _selectedPiggy.transform.position + Vector3.up * 3;
+        _selectedArrow.transform.position = _selectedPiggy.transform.position + Vector3.up * 1;
     }
 
     public void OnMouseClick(Vector3 mousePos)
     {
-        Debug.Log($"Mouse clicked at {mousePos}");
+        // Debug.Log($"Mouse clicked at {mousePos}");
         var probablyPiggy = Physics2D.OverlapCircle(mousePos, 0.5f, LayerMask.GetMask("Piggy"));
-        Debug.Log($"Probably piggy: {probablyPiggy}");
+        // Debug.Log($"Probably piggy: {probablyPiggy}");
         if (probablyPiggy != null && probablyPiggy.TryGetComponent<PeacefulPiggy>(out var reallyPiggy))
         {
             _piggyCard.SetData(reallyPiggy.Data);
             _selectedPiggy = reallyPiggy;
-            Debug.Log($"Piggy clicked: {probablyPiggy.name}");
+            // Debug.Log($"Piggy clicked: {probablyPiggy.name}");
         }
     }
 
@@ -72,7 +72,7 @@ public class EvolutionsMenu : MonoBehaviour
     {
         foreach (var piggyData in Game.Instance.PlayerPiggies())
         {
-            Debug.Log($"Creating piggy {piggyData.Name}");
+            // Debug.Log($"Creating piggy {piggyData.Name}");
             var piggy = CreateNewPiggy();
             piggy.SetData(piggyData);
             piggy.SetWalkArea(_piggiesHomeCollider);
@@ -128,6 +128,7 @@ public class EvolutionsMenu : MonoBehaviour
             Game.Instance.UpgradePiggyRank(_selectedPiggy.Data);
             Debug.Log($"Changing piggy type to fast {_selectedPiggy.Data.Rank}");
             _piggyCard.SetData(_selectedPiggy.Data);
+            _selectedPiggy.UpdateData();
             Log.Info("Rank upgraded");
         }
         else
@@ -142,6 +143,7 @@ public class EvolutionsMenu : MonoBehaviour
         {
             Game.Instance.ChangePiggyType(_selectedPiggy.Data, PiggyType.Fat);
             _piggyCard.SetData(_selectedPiggy.Data);
+            _selectedPiggy.UpdateData();
         }
         else
             Debug.Log("Not enough corn");
@@ -157,6 +159,7 @@ public class EvolutionsMenu : MonoBehaviour
             Game.Instance.ChangePiggyType(_selectedPiggy.Data, PiggyType.Fast);
             Debug.Log($"Changing piggy type to fast {_selectedPiggy.Data.Speed}");
             _piggyCard.SetData(_selectedPiggy.Data);
+            _selectedPiggy.UpdateData();
         }
         else
             Debug.Log("Not enough corn");
