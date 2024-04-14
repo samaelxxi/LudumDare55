@@ -53,7 +53,7 @@ namespace DesignPatterns.Singleton
 
         void RemoveDuplicates()
         {
-            if (_instance == null)
+            if (_instance == null || _instance == this as T)
             {
                 _instance = this as T;
                 DontDestroyOnLoad(gameObject);

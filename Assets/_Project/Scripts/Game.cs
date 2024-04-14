@@ -8,8 +8,6 @@ using UnityEngine.Tilemaps;
 
 public class Game : Singleton<Game>
 {
-    [field: SerializeField] public Grid Grid { get; private set; }
-    [field: SerializeField] public Tilemap Roads { get; private set; }
     [field: SerializeField] public RoadManager RoadManager { get; private set; }
     [field: SerializeField] public PiggyEvolutions PiggyEvolutions { get; private set; }
 
@@ -36,6 +34,8 @@ public class Game : Singleton<Game>
         base.Awake();
         if (PiggyEvolutions == null)
             PiggyEvolutions = Resources.Load<PiggyEvolutions>("SO/PiggyEvolutions");
+        if (RoadManager == null)
+            RoadManager = FindFirstObjectByType<RoadManager>();
 
         _player = new Player(PiggyEvolutions.Normal[0], PiggyEvolutions.InitialPiggies);
         _level = FindFirstObjectByType<Level>();
@@ -65,6 +65,12 @@ public class Game : Singleton<Game>
         _player.UpgradePiggyRank(_player.GetPiggies().ElementAt(8));
 
 
+    }
+
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+            OnMouseClick(Camera.main.ScreenToWorldPoint(Input.mousePosition));
     }
 
     public void UpgradePiggyRank(PiggyData piggyData)
@@ -105,11 +111,5 @@ public class Game : Singleton<Game>
             _chosenSummonPoint = summonPoint;
             _chosenSummonPoint.BeChosen();
         }
-    }
-
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-            OnMouseClick(Camera.main.ScreenToWorldPoint(Input.mousePosition));
     }
 }

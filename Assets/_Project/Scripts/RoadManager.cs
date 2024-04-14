@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
@@ -7,10 +8,21 @@ public class RoadManager : MonoBehaviour
 {
     [SerializeField] Grid _grid;
 
+    [SerializeField] List<RoadTile> _roadTilesRaw = new();
+
     Dictionary<Vector2Int, RoadTile> _roadTiles = new();
 
     void Awake()
     {
+        CollectArrows();
+    }
+
+    void CollectArrows()
+    {
+        _roadTiles.Clear();
+        _roadTilesRaw.Clear();
+        _roadTilesRaw.AddRange(transform.GetComponentsInChildren<RoadTile>());
+        Debug.Log($"Found {_roadTilesRaw.Count} road tiles");
         foreach (var tile in transform.GetComponentsInChildren<RoadTile>())
         {
             var tilePos = tile.transform.position;
@@ -19,8 +31,12 @@ public class RoadManager : MonoBehaviour
             tile.SetPosition(gridPos);
             var goodPos = _grid.CellToWorld(gridPos.ToVector3Int()) + new Vector3(2, 2, 0.0f);
             tile.transform.position = goodPos;  // snap to grid
-            // Debug.Log($"Tile at {tilePos} is at grid position {gridPos} {_grid.CellToWorld(gridPos.ToVector3Int())}");
         }
+    }
+
+    void OnValidate()
+    {
+        CollectArrows();
     }
 
     public RoadTile GetRoadTileAt(Vector3 position)
@@ -51,7 +67,7 @@ public class RoadManager : MonoBehaviour
                     continue;
                 if (_roadTiles.ContainsKey(neighbourPos))
                 {
-                    Debug.Log($"Switching to {newDirection}");
+                    // Debug.Log($"Switching to {newDirection}");
                     roadTile.SwitchDirection(newDirection);
                     break;
                 }
