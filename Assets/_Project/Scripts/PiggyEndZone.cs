@@ -45,16 +45,16 @@ public class PiggyEndZone : MonoBehaviour
         return pos;
     }
 
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, 0.1f);
-        for (int i = 0; i <= 9; i++)
-        {
-            _piggyDist = (_collider.size.y-1) / (9 - 1);
-            Vector3 pos = new(transform.position.x, 
-                              transform.position.y - _collider.size.y / 2 + i * _piggyDist + 0.5f, 0);
-            Gizmos.DrawWireSphere(pos, 0.1f);
-        }
-    }
+    // void OnDrawGizmos()
+    // {
+    //     Gizmos.color = Color.red;
+    //     Gizmos.DrawWireSphere(transform.position, 0.1f);
+    //     for (int i = 0; i <= 9; i++)
+    //     {
+    //         _piggyDist = (_collider.size.y-1) / (9 - 1);
+    //         Vector3 pos = new(transform.position.x, 
+    //                           transform.position.y - _collider.size.y / 2 + i * _piggyDist + 0.5f, 0);
+    //         Gizmos.DrawWireSphere(pos, 0.1f);
+    //     }
+    // }
 }
