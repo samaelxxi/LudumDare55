@@ -2,12 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[SelectionBase]
 public class Doggie : PiggyScarer
 {
     [SerializeField] GameObject _barkVFX;
     [SerializeField] Animator _barkAnimator;
 
-    Vector3 _direction;
 
     protected override void Attack()
     {

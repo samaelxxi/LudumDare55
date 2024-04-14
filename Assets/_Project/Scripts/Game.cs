@@ -95,8 +95,13 @@ public class Game : Singleton<Game>
 
     void OnMouseClick(Vector3 worldPosition)
     {
+        Debug.Log(worldPosition);
         RoadManager.TrySwitchRoadTileAt(worldPosition);
         TryChooseSummonPoint(worldPosition);
+
+        var t = RoadManager.GetRoadTileAt(worldPosition);
+        if (t != null)
+            Debug.Log(t.Position);
     }
 
     void TryChooseSummonPoint(Vector3 worldPosition)

@@ -46,7 +46,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <IsSwitchable>k__BackingField: 0
-  <Direction>k__BackingField: 0
+  <Direction>k__BackingField: 1
   <IsEscapeTile>k__BackingField: 0
   _arrowSprite: {fileID: 4981918218949701004}
   _arrowAnimator: {fileID: 4999578287084523671}
@@ -125,7 +125,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: 1303423370, guid: af46344a75fd8f2468a2cd48705960f6, type: 3}
+  m_Sprite: {fileID: -661242670, guid: af46344a75fd8f2468a2cd48705960f6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 
+
 public class RoadManager : MonoBehaviour
 {
     [SerializeField] Grid _grid;
@@ -14,29 +15,43 @@ public class RoadManager : MonoBehaviour
 
     void Awake()
     {
+        Debug.Log("Awake");
         CollectArrows();
     }
+
+    [NaughtyAttributes.Button]
+    public void UpdateRoadTiles()
+    {
+        CollectArrows();
+    }
+
+    void OnValidate()
+    {
+        // CollectArrows();
+    }
+
 
     void CollectArrows()
     {
         _roadTiles.Clear();
         _roadTilesRaw.Clear();
         _roadTilesRaw.AddRange(transform.GetComponentsInChildren<RoadTile>());
-        Debug.Log($"Found {_roadTilesRaw.Count} road tiles");
+        // Debug.Log($"Found {_roadTilesRaw.Count} road tiles");
         foreach (var tile in transform.GetComponentsInChildren<RoadTile>())
         {
+            if (tile.gameObject.activeInHierarchy == false)
+                continue;
             var tilePos = tile.transform.position;
             var gridPos = _grid.WorldToCell(tilePos).ToVector2Int();
+            // Debug.Log($"Tile at {gridPos} ");
             _roadTiles[gridPos] = tile;
             tile.SetPosition(gridPos);
-            var goodPos = _grid.CellToWorld(gridPos.ToVector3Int()) + new Vector3(2, 2, 0.0f);
-            tile.transform.position = goodPos;  // snap to grid
+            // var goodPos = _grid.CellToWorld(gridPos.ToVector3Int());
+            // tile.transform.position = goodPos;  // snap to grid
         }
-    }
 
-    void OnValidate()
-    {
-        CollectArrows();
+        foreach (var tile in _roadTilesRaw)
+            tile.SetupArrow(tile.Direction);
     }
 
     public RoadTile GetRoadTileAt(Vector3 position)

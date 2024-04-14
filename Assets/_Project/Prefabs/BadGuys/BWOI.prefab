@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5393081427247206565}
-  - component: {fileID: 471881225336849235}
+  - component: {fileID: 2445332944716144352}
   - component: {fileID: 7396190344541731111}
   m_Layer: 9
   m_Name: BWOI
@@ -32,9 +32,10 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4823671376684976823}
+  - {fileID: 5894306887393466845}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &471881225336849235
+--- !u!114 &2445332944716144352
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,12 +44,16 @@ MonoBehaviour:
   m_GameObject: {fileID: 5829251101971423498}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8eccc66a9ea2674c91f5b94fa0e98df, type: 3}
+  m_Script: {fileID: 11500000, guid: 59561578086795a41a08cca2d3522bcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 10
+  _damage: 20
   _rechargeTime: 1
   _attackType: 0
+  _animator: {fileID: 3585856138291379029}
+  _stonePrefab: {fileID: 1024847614036328790, guid: ee8215f2a5a03b44ba43bad8c508db1e, type: 3}
+  _stoneSpawnPoint: {fileID: 5894306887393466845}
+  _spriteRenderer: {fileID: 3716935401506705643}
 --- !u!58 &7396190344541731111
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -83,7 +88,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 10
+  m_Radius: 3
 --- !u!1 &7266544604919893891
 GameObject:
   m_ObjectHideFlags: 0
@@ -94,6 +99,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4823671376684976823}
   - component: {fileID: 3716935401506705643}
+  - component: {fileID: 3585856138291379029}
   m_Layer: 9
   m_Name: Sprite
   m_TagString: Untagged
@@ -110,9 +116,9 @@ Transform:
   m_GameObject: {fileID: 7266544604919893891}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 5393081427247206565}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -157,7 +163,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -95237654, guid: a7dce3166cee60f4f9b4457a6cd11a58, type: 3}
+  m_Sprite: {fileID: -244297910, guid: a2b566c2038abbc42b64659df56b80d9, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -168,3 +174,55 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &3585856138291379029
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7266544604919893891}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a9218c723f53de04a919289126d74998, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &7474497738681084062
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5894306887393466845}
+  m_Layer: 9
+  m_Name: BWOIStonePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5894306887393466845
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7474497738681084062}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.327, y: 0.431, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5393081427247206565}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

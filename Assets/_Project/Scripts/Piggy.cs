@@ -11,6 +11,8 @@ public class Piggy : MonoBehaviour
     [SerializeField] float _speed = 1.0f;
     [SerializeField] float _hp = 100.0f;
 
+    [SerializeField] SpriteRenderer _spriteRenderer;
+
     RoadTile _previousRoadTile;
     RoadTile _currentRoadTile;
 
@@ -83,9 +85,10 @@ public class Piggy : MonoBehaviour
     {
         IsScared = true;
         _currentPath = Game.Instance.RoadManager.GetPathToEscape(_currentRoadTile);
-        _speed = 10;
+        _speed = 8;
         _currentPath.RemoveAt(0); // Remove the current tile from the path
         _moveTween.Kill();
+        _spriteRenderer.flipX = false;
 
         GoAlongPath();
     }

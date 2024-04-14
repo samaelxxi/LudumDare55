@@ -48,8 +48,8 @@ public class Goosey : PiggyScarer
         this.InSeconds(4.0f/12.0f, delegate
         {
             _slamVFX.SetActive(true);
-            _slamAnimator.SetTrigger("Slam");
-            _slamVFX.transform.position = transform.position + RoadTile.Directions[dir].ToVector3()*4;
+            _slamAnimator.Play("Slam", 0, 0);
+            _slamVFX.transform.position = transform.position + RoadTile.Directions[dir].ToVector3();
             DamageAllOnTile(dir);
         });
     }

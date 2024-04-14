@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEditor;
 using UnityEngine;
 
 [SelectionBase]
@@ -27,20 +29,23 @@ public class RoadTile : MonoBehaviour
     [SerializeField] float _speedModifier = 1.0f;
     public float SpeedModifier => _speedModifier;
 
+    string _currentArrowDirection;
     int _visited = 0;
 
     void Awake()
     {
-        if (!IsSwitchable)
+        if (!IsSwitchable && Application.isPlaying)
             _arrowSprite.enabled = false;
-        else
-            SetupArrow(Direction);
+        // else
+        //     SetupArrow(Direction);
     }
 
     void OnValidate()
     {
-        SetupArrow(Direction);
-        _arrowSprite.enabled = true;
+        // if (Application.isPlaying)
+        //     return;
+        // SetupArrow(Direction);
+        // _arrowSprite.enabled = true;
     }
 
     public void SetPosition(Vector2Int position)
@@ -59,35 +64,34 @@ public class RoadTile : MonoBehaviour
         SetupArrow(newDirection);
     }
 
-    void SetupArrow(RoadDirection newDirection)
+    public void SetupArrow(RoadDirection newDirection)
     {
+        // Debug.Log($"Setting up arrow for {Position} | {Direction} -> {newDirection}");
         string triggerName = "";
         RoadManager manager = Game.Instance.RoadManager;
         
         var leftNeigh = manager.GetNeighbour(this, RoadDirection.Left);
-        // Debug.Log($"Left neighbour is {leftNeigh}");
-        if (leftNeigh != null && leftNeigh.Direction == RoadDirection.Right)
+        if (leftNeigh != null && (leftNeigh.Direction == RoadDirection.Right || leftNeigh.IsSwitchable))
             triggerName = "Left";
         if (triggerName == "")
         {
             var topNeigh = manager.GetNeighbour(this, RoadDirection.Up);
-            // Debug.Log($"Top neighbour is {topNeigh}");
-            if (topNeigh != null && topNeigh.Direction == RoadDirection.Down)
+            if (topNeigh != null && (topNeigh.Direction == RoadDirection.Down || topNeigh.IsSwitchable))
                 triggerName = "Top";
         }
         if (triggerName == "")
         {
             var bottomNeigh = manager.GetNeighbour(this, RoadDirection.Down);
-            // Debug.Log($"Bottom neighbour is {bottomNeigh}");
-            if (bottomNeigh != null && bottomNeigh.Direction == RoadDirection.Up)
+            if (bottomNeigh != null && (bottomNeigh.Direction == RoadDirection.Up || bottomNeigh.IsSwitchable))
                 triggerName = "Down";
         }
-        if (triggerName == "")
-            Debug.LogWarning("No trigger name found for arrow");
         string secondPart = newDirection.ToString();
         if (secondPart == "Up") secondPart = "Top";
-        // Debug.Log($"Trigger name is {triggerName + secondPart}");
-        _arrowAnimator.SetTrigger(triggerName + secondPart);
+        if (triggerName == "" || secondPart == "")
+            Debug.LogWarning("No trigger name found for arrow");
+        else
+            _arrowAnimator.SetTrigger(triggerName + secondPart);
+        _currentArrowDirection = triggerName + secondPart;
 
         if (!Application.isPlaying)
             SetAnimationFrame(triggerName + secondPart, 0, 0);
@@ -95,21 +99,35 @@ public class RoadTile : MonoBehaviour
 
     void OnDrawGizmos()
     {
-        // check if playmoed
+        // check if playmod
         if (Application.isPlaying)
         {
             Gizmos.color = IsSwitchable ? Color.green : Color.red;
-            GizmosExtensions.DrawArrow(transform.position, Directions[Direction].ToVector3Int(), 2.0f, 1);
+            GizmosExtensions.DrawArrow(transform.position, Directions[Direction].ToVector3Int(), 0.5f, 0.3f);
+        }
+        else
+        {
+            if (IsSwitchable)
+                Gizmos.DrawWireSphere(transform.position, 0.5f);
         }
     }
 
     private void SetAnimationFrame(string animationName, int layer, float normalizedAnimationTime)
     {
+        // Debug.Log($"Setting animation frame for {animationName} | pos: {Position} | dir: {Direction}");
         if (_arrowAnimator != null) 
         {
-            _arrowAnimator.speed = 0f;
-            _arrowAnimator.Play(animationName, layer, 0);
-            _arrowAnimator.Update(Time.deltaTime);
+            if (!_arrowAnimator.runtimeAnimatorController.animationClips.Any((a) => a.name == animationName))
+            {
+                Debug.LogError($"No animation clip found for {animationName} | pos: {Position} | dir: {Direction}");
+                return;
+            }
+            var animationClip = _arrowAnimator.runtimeAnimatorController.animationClips.First(clip => clip.name == animationName);
+
+            var bindings = AnimationUtility.GetObjectReferenceCurveBindings(animationClip).First();
+            var keyframes = AnimationUtility.GetObjectReferenceCurve(animationClip, bindings);
+            var spriteKey = keyframes.First().value as Sprite;
+            _arrowSprite.sprite = spriteKey;
         }
     }
 }

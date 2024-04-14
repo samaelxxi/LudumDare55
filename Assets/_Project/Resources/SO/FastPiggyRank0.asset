@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25279e1f191c8be408e88d114d79b6fe, type: 3}
   m_Name: FastPiggyRank0
   m_EditorClassIdentifier: 
-  <Speed>k__BackingField: 7
+  <Speed>k__BackingField: 2
   <Health>k__BackingField: 90
   <Fattiness>k__BackingField: 60
   <Type>k__BackingField: 2
