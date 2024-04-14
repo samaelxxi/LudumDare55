@@ -42,10 +42,10 @@ public class RoadTile : MonoBehaviour
 
     void OnValidate()
     {
-        // if (Application.isPlaying)
-        //     return;
-        // SetupArrow(Direction);
-        // _arrowSprite.enabled = true;
+        if (Application.isPlaying)
+            return;
+        SetupArrow(Direction);
+        _arrowSprite.enabled = true;
     }
 
     public void SetPosition(Vector2Int position)
@@ -68,8 +68,13 @@ public class RoadTile : MonoBehaviour
     {
         // Debug.Log($"Setting up arrow for {Position} | {Direction} -> {newDirection}");
         string triggerName = "";
-        RoadManager manager = Game.Instance.RoadManager;
-        
+
+        RoadManager manager;
+        if (Application.isPlaying)
+            manager = Game.Instance.RoadManager;
+        else
+            manager = FindObjectOfType<RoadManager>();
+
         var leftNeigh = manager.GetNeighbour(this, RoadDirection.Left);
         if (leftNeigh != null && (leftNeigh.Direction == RoadDirection.Right || leftNeigh.IsSwitchable))
             triggerName = "Left";
@@ -88,7 +93,7 @@ public class RoadTile : MonoBehaviour
         string secondPart = newDirection.ToString();
         if (secondPart == "Up") secondPart = "Top";
         if (triggerName == "" || secondPart == "")
-            Debug.LogWarning("No trigger name found for arrow");
+            Debug.LogWarning("No trigger name found for arrow" + triggerName + "|" + secondPart);
         else
             _arrowAnimator.SetTrigger(triggerName + secondPart);
         _currentArrowDirection = triggerName + secondPart;
