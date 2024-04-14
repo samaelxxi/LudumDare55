@@ -174,6 +174,12 @@ public class Game : Singleton<Game>
             OnKeyNumberPressed?.Invoke(3);
     }
 
+    public IEnumerable<PiggyData> GetFreePigWithData(PiggyType type, int rank)
+    {
+        var allPigs = _player.GetPigsWithData(type, rank);
+         return allPigs.Where(p => !Game.Instance.Level.IsPiggySummoned(p.Name));
+    }
+
     public void UpgradePiggyRank(PiggyData piggyData)
     {
         _player.UpgradePiggyRank(piggyData);

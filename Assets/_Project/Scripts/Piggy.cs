@@ -19,6 +19,8 @@ public class Piggy : MonoBehaviour
     [SerializeField] AnimationCurve _jumpCurve;
     [SerializeField] float _smoothTime = 0.3f;
 
+    public PiggyData Data { get; private set; }
+
     RoadTile _previousRoadTile;
     RoadTile _currentRoadTile;
 
@@ -27,6 +29,7 @@ public class Piggy : MonoBehaviour
     public bool CanBeScared => !_isScared && !_isEating;
     public bool IsGotSomeFood => _isEating;
     public bool IsFinishedHarvesting => _isEating || _isScared;
+    public string Name => _name;
 
     List<RoadTile> _currentPath;
 
@@ -36,6 +39,7 @@ public class Piggy : MonoBehaviour
     bool _isEating = false;
     bool _shouldJump = false;
     float _jumpTime = 0;
+    string _name;
 
     void Start()
     {
@@ -67,6 +71,9 @@ public class Piggy : MonoBehaviour
         _hp = data.Health;
         _foodCapacity = data.FoodCapacity;
         _spriteRenderer.sprite = data.Sprite;
+
+        Data = data;
+        _name = data.Name;
     }
 
     void MoveToCrops()

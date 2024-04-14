@@ -17,6 +17,14 @@ public class Level : MonoBehaviour
     SummonPoint _chosenSummonPoint;
 
     List<Piggy> _summonedPiggies = new();
+    List<string> _summonedPiggyNames = new();
+
+    public bool IsPiggySummoned(string name)
+    {
+        return _summonedPiggyNames.Any(piggyName => piggyName == name);
+    }
+
+    public IEnumerable<Piggy> SummonedPiggies => _summonedPiggies;
 
     UI _ui;
 
@@ -87,6 +95,7 @@ public class Level : MonoBehaviour
 
     void SummonPiggy(PiggyData piggyData)
     {
+        _summonedPiggyNames.Add(piggyData.Name);
         _chosenSummonPoint.AddToSummonQueue(piggyData);
     }
 

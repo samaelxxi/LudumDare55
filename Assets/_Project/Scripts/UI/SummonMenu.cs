@@ -50,7 +50,8 @@ public class SummonMenu : MonoBehaviour
                 if (quantity > 0)
                 {
                     SummonCard card = Instantiate(_summonCardPrefab, _cardsContainer);
-                    card.SetupCard(piggiesByType[type].Where(p => p.Rank == i).First(), quantity);
+                    var anyPig = Game.Instance.GetFreePigWithData(type, i).First();
+                    card.SetupCard(piggiesByType[type].Where(p => p.Rank == i).First(), quantity, anyPig.Name);
                     _cards.Add(card);
                     card.OnCardClicked += OnCardClickedHandler;
                 }

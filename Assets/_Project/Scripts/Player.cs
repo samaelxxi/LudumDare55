@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class Player
@@ -47,12 +48,18 @@ public class Player
         return newData;
     }
 
+    public IEnumerable<PiggyData> GetPigsWithData(PiggyType type, int rank)
+    {
+        return _myPiggies.Where(p => p.Type == type && p.Rank == rank);
+    }
+
     public void UpgradePiggyRank(PiggyData data)
     {
         SpendCorn(data.UpgradeCost);
         var evolutions = Game.Instance.PiggyEvolutions;
         PiggyData upgradedPiggy = evolutions.GetNextEvolution(data.Type, data.Rank);
         ChangePiggyData(data, upgradedPiggy);
+        Debug.Log($"Piggy {data.Name} upgraded to rank {data.Rank}");
     }
 
     public void ChangePiggyType(PiggyData data, PiggyType newType)
@@ -67,6 +74,7 @@ public class Player
         var evolutions = Game.Instance.PiggyEvolutions;
         PiggyData upgradedPiggy = evolutions.GetEvolution(newType, 0);
         ChangePiggyData(data, upgradedPiggy);
+        Debug.Log($"Piggy {data.Name} changed to {newType}");
     }
 
     public void ReceiveCorn(int amount)
