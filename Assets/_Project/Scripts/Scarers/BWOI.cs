@@ -35,7 +35,7 @@ public class BWOI : PiggyScarer
 
     void ChoosePiggy()
     {
-        if (!_piggies.Contains(_chosenPiggy) || _chosenPiggy.IsScared)
+        if (!_piggies.Contains(_chosenPiggy) || !_chosenPiggy.CanBeScared)
             _chosenPiggy = null;
 
         if (_chosenPiggy != null)
@@ -43,7 +43,7 @@ public class BWOI : PiggyScarer
 
         Piggy closestPiggy = null;
         float closestDistance = float.MaxValue;
-        foreach (var piggy in _piggies.Where(p => !p.IsScared))
+        foreach (var piggy in _piggies.Where(p => p.CanBeScared))
         {
             float distance = Vector3.Distance(transform.position, piggy.transform.position);
             if (distance < closestDistance)

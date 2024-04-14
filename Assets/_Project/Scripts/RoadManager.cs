@@ -13,9 +13,8 @@ public class RoadManager : MonoBehaviour
 
     Dictionary<Vector2Int, RoadTile> _roadTiles = new();
 
-    void Awake()
+    void Start()
     {
-        Debug.Log("Awake");
         CollectArrows();
     }
 

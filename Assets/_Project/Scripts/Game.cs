@@ -1,15 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using DesignPatterns.Singleton;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
 
 
 public class Game : Singleton<Game>
 {
-    [field: SerializeField] public RoadManager RoadManager { get; private set; }
     [field: SerializeField] public PiggyEvolutions PiggyEvolutions { get; private set; }
+
+    [SerializeField] int _currentLevel = 1;
 
     public IEnumerable<PiggyData> PlayerPiggies() => _player.GetPiggies();
     public int PlayerCorn => _player.Corn;
@@ -17,11 +20,22 @@ public class Game : Singleton<Game>
     public int NewPiggyCost => PiggyEvolutions.BasePiggyCost + (PiggiesQuantity - PiggyEvolutions.InitialPiggies) * PiggyEvolutions.ExtraNewPiggyCost;
     public bool CanBuyNewPiggy => PlayerCorn >= NewPiggyCost && PiggiesQuantity < PiggyEvolutions.MaxPiggies;
 
+    public Level Level => _level;
+    public RoadManager RoadManager => _level.RoadManager;
+
     Player _player;
     Level _level;
-    UI _ui;
+    EvolutionsMenu _evolutionsMenu;
 
-    SummonPoint _chosenSummonPoint;
+
+    public event Action<Vector3> OnMouseClick;
+
+
+    enum GameState { Harvest, Upgrade, Menu }
+
+    GameState _state = GameState.Harvest;
+
+    int _maxLevel = -1;
 
     public event System.Action<int> OnCornChanged
     {
@@ -34,17 +48,43 @@ public class Game : Singleton<Game>
         base.Awake();
         if (PiggyEvolutions == null)
             PiggyEvolutions = Resources.Load<PiggyEvolutions>("SO/PiggyEvolutions");
-        if (RoadManager == null)
-            RoadManager = FindFirstObjectByType<RoadManager>();
 
         _player = new Player(PiggyEvolutions.Normal[0], PiggyEvolutions.InitialPiggies);
-        _level = FindFirstObjectByType<Level>();
-        _level.SummonPoints[0].BeChosen();
-        _chosenSummonPoint = _level.SummonPoints[0];
-        _ui = FindFirstObjectByType<UI>();
-        _ui.SummonMenu.OnCardClicked += SummonPiggy;
+        InitTestPigs();
+        
+        SceneManager.sceneLoaded += (scene, mode) => OnSceneLoaded();
+        OnSceneLoaded();
 
+        DetectLevelsNumber();
+    }
 
+    void DetectLevelsNumber()
+    {
+        int level = 1;
+        while (true)
+        {
+            _maxLevel = level;
+            if (!SceneManager.GetSceneByName("Level" + (level+1)).IsValid())
+                break;
+            level++;
+            if (level > 100)
+                break;
+        }
+        Debug.Log("Found " + _maxLevel + " levels");
+    }
+
+    void OnSceneLoaded()
+    {
+        if (FindFirstObjectByType<Level>() != null)
+            StartLevel();
+        else if (FindAnyObjectByType<EvolutionsMenu>() != null)
+            StartEvolution();
+        else
+            _state = GameState.Menu;  // idk
+    }
+
+    void InitTestPigs()
+    {
         // add all types of piggies
         _player.UpgradePiggyRank(_player.GetPiggies().First());
         _player.UpgradePiggyRank(_player.GetPiggies().First());
@@ -63,14 +103,60 @@ public class Game : Singleton<Game>
         _player.UpgradePiggyRank(_player.GetPiggies().ElementAt(7));
         _player.UpgradePiggyRank(_player.GetPiggies().ElementAt(8));
         _player.UpgradePiggyRank(_player.GetPiggies().ElementAt(8));
+    }
 
+    void StartLevel(bool awaken = false)
+    {
+        _level = FindFirstObjectByType<Level>();
+        _level.OnLevelCompleted += CompleteLevel;
+        _currentLevel = int.Parse(SceneManager.GetActiveScene().name.Substring(5));
+        _state = GameState.Harvest;
+    }
 
+    void CompleteLevel()
+    {
+        Debug.Log("Level completed" + _currentLevel);
+        _currentLevel = Mathf.Min(_currentLevel + 1, _maxLevel);
+        _level = null;
+        GoToEvolutionsScene();
+    }
+
+    void StartEvolution()
+    {
+        _evolutionsMenu = FindAnyObjectByType<EvolutionsMenu>();
+        _state = GameState.Upgrade;
+        _evolutionsMenu.OnEvolutionsEnd += ExitEvolutions;
+    }
+
+    void ExitEvolutions()
+    {
+        _evolutionsMenu = null;
+        GoToNextLevelScene();
+    }
+
+    void GoToEvolutionsScene()
+    {
+        SceneManager.LoadScene("Evolutions");
+    }
+
+    void GoToNextLevelScene()
+    {
+        if (SceneManager.GetSceneByName("Level" + _currentLevel) != null)
+            SceneManager.LoadScene("Level" + _currentLevel);
+        else
+        {
+            Debug.LogError("No more levels, goin to last one");
+            SceneManager.LoadScene("Level" + (_currentLevel - 1));
+        }
     }
 
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
-            OnMouseClick(Camera.main.ScreenToWorldPoint(Input.mousePosition));
+        {
+            var worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            OnMouseClick?.Invoke(worldPosition);
+        }
     }
 
     public void UpgradePiggyRank(PiggyData piggyData)
@@ -88,33 +174,8 @@ public class Game : Singleton<Game>
         return _player.AddNewPiggy();
     }
 
-    void SummonPiggy(PiggyData piggyData)
+    public void PiggyGotSomeFood(int food)
     {
-        _chosenSummonPoint.AddToSummonQueue(piggyData);
-    }
-
-    void OnMouseClick(Vector3 worldPosition)
-    {
-        Debug.Log(worldPosition);
-        RoadManager.TrySwitchRoadTileAt(worldPosition);
-        TryChooseSummonPoint(worldPosition);
-
-        var t = RoadManager.GetRoadTileAt(worldPosition);
-        if (t != null)
-            Debug.Log(t.Position);
-    }
-
-    void TryChooseSummonPoint(Vector3 worldPosition)
-    {
-        var summonPointCollider = Physics2D.OverlapPoint(worldPosition, LayerMask.GetMask("SummonPoint"));
-        if (summonPointCollider == null)
-            return;
-        if (summonPointCollider.TryGetComponent<SummonPoint>( out var summonPoint ) )
-        {
-            if (_chosenSummonPoint != null)
-                _chosenSummonPoint.BeUnchosen();
-            _chosenSummonPoint = summonPoint;
-            _chosenSummonPoint.BeChosen();
-        }
+        _player.ReceiveCorn(food);
     }
 }

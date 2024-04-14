@@ -50,5 +50,6 @@ public class SummonPoint : MonoBehaviour
         var data = _summonQueue.Dequeue();
         var piggy = Instantiate(_piggyPrefab, transform.position, Quaternion.identity);
         piggy.SetupPiggy(data);
+        Game.Instance.Level.AddHungryPiggy(piggy);
     }
 }

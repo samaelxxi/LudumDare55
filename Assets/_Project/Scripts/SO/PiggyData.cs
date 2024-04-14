@@ -16,6 +16,7 @@ public class PiggyData : ScriptableObject
     [field: SerializeField] public float Speed { get; set; }
     [field: SerializeField] public float Health { get; set; }
     [field: SerializeField] public float Fattiness { get; set; }
+    [field: SerializeField] public int FoodCapacity { get; set; } = 30;
     [field: SerializeField] public PiggyType Type { get; set; }
     [field: SerializeField] public int Rank { get; set; }
     [field: SerializeField] public Sprite Sprite { get; set; }
