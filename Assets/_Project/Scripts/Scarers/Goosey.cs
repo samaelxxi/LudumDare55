@@ -34,6 +34,8 @@ public class Goosey : PiggyScarer
         }
     }
 
+    Piggy _target;
+
     protected override void Attack()
     {
         // Debug.Log("Triggered attack");
@@ -43,14 +45,14 @@ public class Goosey : PiggyScarer
         var targets = _piggies.Where(piggy => piggy.CanBeScared);
 
         // pick closest piggy
-        Piggy target = targets.OrderBy(p => Vector3.Distance(transform.position, p.transform.position)).FirstOrDefault();
+        Piggy _target = targets.OrderBy(p => Vector3.Distance(transform.position, p.transform.position)).FirstOrDefault();
 
         // Piggy target = targets.ElementAt(Random.Range(0, targets.Count()));
-        RoadTile targetTile = roadManager.GetRoadTileAt(target.transform.position);
+        RoadTile targetTile = roadManager.GetRoadTileAt(_target.transform.position);
 
-        float ds = target.Speed * AttackTime;
-        var predictedPos = target.transform.position + RoadTile.Directions[targetTile.Direction].ToVector3() * ds;
-        _targetPos = target.transform.position;
+        float ds = _target.Speed * AttackTime;
+        var predictedPos = _target.transform.position + RoadTile.Directions[targetTile.Direction].ToVector3() * ds;
+        _targetPos = _target.transform.position;
         _predPos = predictedPos;
         var predictedTile = roadManager.GetRoadTileAt(predictedPos);
         _pred = predictedTile;
@@ -123,13 +125,14 @@ public class Goosey : PiggyScarer
 
     void DamageAllOnTile(RoadTile tile)
     {
+        _target.ReceiveNegativeVibes(_damage);
         if (tile == null)
         {
             Debug.LogError($"No road tile found for attack on ");
             return;
         }
         foreach (var piggy in _piggies.Where(p => p.CanBeScared))
-            if (Game.Instance.RoadManager.GetRoadTileAt(piggy.transform.position) == tile)
+            if (Game.Instance.RoadManager.GetRoadTileAt(piggy.transform.position) == tile && piggy != _target)
                 piggy.ReceiveNegativeVibes(_damage);
     }
 }

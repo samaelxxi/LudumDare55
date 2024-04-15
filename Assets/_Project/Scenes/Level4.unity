@@ -17142,6 +17142,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Probs
       objectReference: {fileID: 0}
+    - target: {fileID: 4350038941047161333, guid: 99dc3b71b6f2e8243a00b7790ef686c8, type: 3}
+      propertyPath: m_SortingOrder
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 7008115333830277533, guid: 99dc3b71b6f2e8243a00b7790ef686c8, type: 3}
       propertyPath: m_SortingOrder
       value: 21
