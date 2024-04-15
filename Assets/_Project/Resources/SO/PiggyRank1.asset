@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25279e1f191c8be408e88d114d79b6fe, type: 3}
   m_Name: PiggyRank1
   m_EditorClassIdentifier: 
-  <Speed>k__BackingField: 3.25
-  <Health>k__BackingField: 120
+  <Speed>k__BackingField: 1
+  <Health>k__BackingField: 30
   <Fattiness>k__BackingField: 80
   <FoodCapacity>k__BackingField: 30
   <Type>k__BackingField: 0

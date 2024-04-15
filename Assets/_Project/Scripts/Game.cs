@@ -75,7 +75,7 @@ public class Game : Singleton<Game>
         }
 
         _player = new Player(PiggyEvolutions.Normal[0], PiggyEvolutions.InitialPiggies);
-        InitTestPigs();
+        //InitTestPigs();
         
         // Debug.Log("Game awake 2" + gameObject.name);
         SceneManager.sceneLoaded += (scene, mode) => OnSceneLoaded();
