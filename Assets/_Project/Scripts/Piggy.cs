@@ -157,6 +157,7 @@ public class Piggy : MonoBehaviour
 
     void BeScared()
     {
+        Oink();
         _isScared = true;
         _currentPath = Game.Instance.RoadManager.GetPathToEscape(_currentRoadTile);
         _speed = 6;
@@ -171,6 +172,7 @@ public class Piggy : MonoBehaviour
     {
         if (collision.TryGetComponent(out PiggyEndZone endZone))
         {
+            Oink();
             _moveTween.Kill();
             var newPos = endZone.GetFreePosition();
             _isEating = true;
@@ -180,9 +182,16 @@ public class Piggy : MonoBehaviour
         else if (collision.TryGetComponent(out LevelFood food))
         {
             Debug.Log("Piggy got some food");
+            Oink();
             collision.gameObject.SetActive(false);
             Game.Instance.Level.PiggyGotSomeFood(food.FoodCount);
         }
+    }
+
+    public void Oink()
+    {
+        var myOiks = Oinks.GetOinks(Data.Type, Data.Rank);
+        Game.Instance.AudioManager.PlayRange(myOiks, pitch: Random.Range(0.9f, 1.1f));
     }
 
     IEnumerator StartEating()
