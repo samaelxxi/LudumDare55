@@ -68,10 +68,9 @@ public class Game : Singleton<Game>
             {
                 _audioManager = Resources.Load<AudioManager>("AudioManager");
                 _audioManager = Instantiate(_audioManager);
-                DontDestroyOnLoad(_audioManager);
             }
-            // _audioManager = Resources.Load<AudioManager>("AudioManager");
-            Debug.Log("Loaded audio manager" + _audioManager.name);
+            AudioPool.Initialise(_audioManager.AudioManagerFile.soundPrefab, 10);
+            DontDestroyOnLoad(_audioManager);
         }
 
         _player = new Player(PiggyEvolutions.Normal[0], PiggyEvolutions.InitialPiggies);
@@ -90,7 +89,7 @@ public class Game : Singleton<Game>
 
     void Start()
     {
-        _audioManager = FindObjectOfType<AudioManager>();
+        Game.Instance.AudioManager.Play("piggyHarvest2", loop: true);
     }
 
     void DetectLevelsNumber()
@@ -152,8 +151,8 @@ public class Game : Singleton<Game>
     {
         Debug.Log("Starting level");
         _level = FindFirstObjectByType<Level>();
-        _level.OnLevelCompleted += CompleteLevel;        _state = GameState.Harvest;
-
+        _level.OnLevelCompleted += CompleteLevel;
+        _state = GameState.Harvest;
         _currentLevel = int.Parse(SceneManager.GetActiveScene().name.Substring(5));
     }
 

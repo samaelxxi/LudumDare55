@@ -125,7 +125,7 @@ public class RoadTile : MonoBehaviour
         {
             if (!_arrowAnimator.runtimeAnimatorController.animationClips.Any((a) => a.name == animationName))
             {
-                Debug.LogWarning($"No animation clip found for {animationName} | pos: {Position} | dir: {Direction}");
+                // Debug.LogWarning($"No animation clip found for {animationName} | pos: {Position} | dir: {Direction}");
                 return;
             }
             var animationClip = _arrowAnimator.runtimeAnimatorController.animationClips.First(clip => clip.name == animationName);

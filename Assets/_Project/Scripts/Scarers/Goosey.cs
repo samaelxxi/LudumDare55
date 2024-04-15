@@ -48,12 +48,13 @@ public class Goosey : PiggyScarer
                 dir = RoadTile.RoadDirection.Left;
             }
         }
+        Game.Instance.AudioManager.Play("Quack1", pitch: Random.Range(0.9f, 1.1f));
         this.InSeconds(4.0f/12.0f, delegate
         {
             _slamVFX.SetActive(true);
             _slamAnimator.Play("Slam", 0, 0);
             _slamVFX.transform.position = transform.position + RoadTile.Directions[dir].ToVector3();
-            Game.Instance.AudioManager.Play("Quack1", pitch: Random.Range(0.9f, 1.1f));
+            
             DamageAllOnTile(dir);
         });
     }
