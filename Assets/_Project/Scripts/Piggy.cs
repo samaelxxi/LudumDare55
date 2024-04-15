@@ -170,7 +170,7 @@ public class Piggy : MonoBehaviour
     IEnumerator StartEating()
     {
         _spriteRenderer.transform.position = _spriteRenderer.transform.position.SetZ(_spriteRenderer.transform.position.y);
-        Game.Instance.PiggyGotSomeFood(_foodCapacity);
+        Game.Instance.Level.PiggyGotSomeFood(_foodCapacity);
         // Debug.Log("Start eating");
         while (true)
         {
