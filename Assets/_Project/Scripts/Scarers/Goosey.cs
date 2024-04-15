@@ -109,7 +109,6 @@ public class Goosey : PiggyScarer
         foreach (var dir in RoadTile.Directions.Keys)
         {
             var neigh = roadManager.GetNeighbour(transform.position, dir);
-            Debug.Log($"Neigh {neigh} {tile} {dir} {neigh == tile}");
             if (neigh == null)
                 continue;
             if (neigh == tile)
