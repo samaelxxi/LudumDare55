@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: FatPiggyRank1
   m_EditorClassIdentifier: 
   <Speed>k__BackingField: 1
-  <Health>k__BackingField: 50
+  <Health>k__BackingField: 2.25
   <Fattiness>k__BackingField: 140
   <FoodCapacity>k__BackingField: 30
   <Type>k__BackingField: 1

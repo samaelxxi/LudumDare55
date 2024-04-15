@@ -27,6 +27,7 @@ public class Level : MonoBehaviour
     }
 
     public IEnumerable<Piggy> SummonedPiggies => _summonedPiggies;
+    public int RequiredPigsToWin => _levelData.RequiredPigsToWin;
 
     UI _ui;
 

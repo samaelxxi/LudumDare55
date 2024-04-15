@@ -43,6 +43,8 @@ public class Piggy : MonoBehaviour
     float _jumpTime = 0;
     string _name;
 
+    float _barkSpeedModifier = 1.0f;
+
     void Start()
     {
         _currentRoadTile = Game.Instance.RoadManager.GetRoadTileAt(transform.position);
@@ -78,6 +80,16 @@ public class Piggy : MonoBehaviour
         _name = data.Name;
     }
 
+    public void GetBarked()
+    {
+        _barkSpeedModifier = 0.8f;
+    }
+
+    public void GetUnbarked()
+    {
+        _barkSpeedModifier = 1.0f;
+    }
+
     void MoveToCrops()
     {
         var nextTile = Game.Instance.RoadManager.GetNeighbourTile(_currentRoadTile, _currentRoadTile.Direction);
@@ -111,7 +123,7 @@ public class Piggy : MonoBehaviour
 
     void GoToTile(RoadTile tile, Action onComplete = null)
     {
-        float speed = _speed * _currentRoadTile.SpeedModifier;
+        float speed = _speed * _currentRoadTile.SpeedModifier * _barkSpeedModifier;
         float dist = Vector3.Distance(_previousRoadTile.transform.position, _currentRoadTile.transform.position);
         float time = dist / speed;
         
@@ -167,6 +179,7 @@ public class Piggy : MonoBehaviour
         }
         else if (collision.TryGetComponent(out LevelFood food))
         {
+            Debug.Log("Piggy got some food");
             collision.gameObject.SetActive(false);
             Game.Instance.Level.PiggyGotSomeFood(food.FoodCount);
         }

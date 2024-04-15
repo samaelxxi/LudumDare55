@@ -98,7 +98,7 @@ public class PiggyScarer : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    public virtual void OnTriggerEnter2D(Collider2D other)
     {
         // Debug.Log("Triggered");
         if (other.TryGetComponent(out Piggy piggy))
@@ -108,7 +108,7 @@ public class PiggyScarer : MonoBehaviour
         }
     }
 
-    void OnTriggerExit2D(Collider2D other)
+    public virtual void OnTriggerExit2D(Collider2D other)
     {
         if (other.TryGetComponent(out Piggy piggy))
         {

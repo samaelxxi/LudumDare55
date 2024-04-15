@@ -12330,6 +12330,7 @@ MonoBehaviour:
   - {fileID: 361783787}
   _levelData:
     RequiredPigsToWin: 2
+    PiggiesReward: 1
 --- !u!4 &832349453
 Transform:
   m_ObjectHideFlags: 0

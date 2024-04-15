@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.418887, y: 2.2132702, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.3, y: 1.3, z: 1.3}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 113903035669310790}
@@ -47,8 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c763104d8a3d7d049bb83648a7be8912, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 10
-  _rechargeTime: 0.7
+  _damage: 4
+  _rechargeTime: 0.5
   _attackType: 1
   _animator: {fileID: 4765561763791871073}
   _barkVFX: {fileID: 5069334932569727728}

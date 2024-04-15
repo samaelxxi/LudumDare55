@@ -7,6 +7,7 @@ using TMPro;
 using UnityEngine.UI;
 using System;
 using Random = UnityEngine.Random;
+using DG.Tweening;
 
 
 public class EvolutionsMenu : MonoBehaviour
@@ -63,6 +64,25 @@ public class EvolutionsMenu : MonoBehaviour
             _selectedPiggy = reallyPiggy;
             Game.Instance.AudioManager.PlayRange(Oinks.GetOinks(_selectedPiggy.Data.Type, _selectedPiggy.Data.Rank), pitch: Random.Range(0.9f, 1.1f));
             // Debug.Log($"Piggy clicked: {probablyPiggy.name}");
+        }
+    }
+
+    public IEnumerator QueueNewPigs(int newPigs)
+    {
+        yield return new WaitForSeconds(1);
+        for (int i = 0; i < newPigs; i++)
+        {
+            var piggy = CreateNewPiggy();
+            var piggyData = Game.Instance.BuyNewPiggy();
+            piggy.SetData(piggyData);
+            piggy.SetWalkArea(_piggiesHomeCollider);
+
+            piggy.transform.DOScale(Vector3.one*1.5f, 0.5f).SetEase(Ease.OutBack).OnComplete(() => piggy.transform.DOShakeScale(0.5f, 0.5f, 5, 40));
+            piggy.transform.DOShakeRotation(1, new Vector3(0, 0, Random.Range(30, 60) * (Random.value > 0.3f ? 1 : -1)), 
+                    1, randomnessMode:ShakeRandomnessMode.Harmonic);
+            piggy.transform.DOJump(piggy.transform.position, 1, 1, 1);
+
+            yield return new WaitForSeconds(1);
         }
     }
 

@@ -40,8 +40,8 @@ public class Player
 
     public PiggyData AddNewPiggy(bool isFree = false)
     {
-        if (!isFree)
-            SpendCorn(Game.Instance.NewPiggyCost);
+        // if (!isFree)
+        //     SpendCorn(Game.Instance.NewPiggyCost);
         var newData = ScriptableObject.Instantiate(_defaultPiggyData);
         newData.SetName(PickName());
         _myPiggies.Add(newData);

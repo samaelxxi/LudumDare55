@@ -36,6 +36,8 @@ public class Game : Singleton<Game>
 
     public bool IsAwaken = false;
 
+    public int PiggiesToAdd = 0;
+
     bool _setupedThisScene = false;
 
     enum GameState { Harvest, Upgrade, Menu }
@@ -100,6 +102,8 @@ public class Game : Singleton<Game>
 
     void OnSceneLoaded()
     {
+        if (_setupedThisScene)
+            return;
         Debug.Log("Scene loaded" + SceneManager.GetActiveScene().name);
         if (FindFirstObjectByType<Level>() != null)
         {
@@ -158,6 +162,10 @@ public class Game : Singleton<Game>
     void StartEvolution()
     {
         _evolutionsMenu = FindAnyObjectByType<EvolutionsMenu>();
+        PiggiesToAdd = 2;
+        Debug.Log("Starting evolutions" + PiggiesToAdd);
+        if (PiggiesToAdd > 0)
+            _evolutionsMenu.QueueNewPigs(PiggiesToAdd);
         _state = GameState.Upgrade;
         Debug.Log("Starting evolutions");
         _evolutionsMenu.OnEvolutionsEnd += ExitEvolutions;

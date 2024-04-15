@@ -134,7 +134,7 @@ MonoBehaviour:
   _speed: 6
   _hp: 200
   _foodCapacity: 20
-  _spriteYOffset: 0.15
+  _spriteYOffset: 0.3
   _spriteRenderer: {fileID: 7891835863864226506}
   _jumpCurve:
     serializedVersion: 2

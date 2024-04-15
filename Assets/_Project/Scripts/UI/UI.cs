@@ -73,7 +73,7 @@ public class UI : MonoBehaviour
 
     public void SetHappyPigsCount(int count)
     {
-        _HappyPigsCount.text = count.ToString();
+        _HappyPigsCount.text = $"{count}/{Game.Instance.Level.RequiredPigsToWin}";
     }
 
     public void RestartLevel()
