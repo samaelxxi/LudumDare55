@@ -165,6 +165,11 @@ public class Piggy : MonoBehaviour
             transform.DOMove(newPos, Vector3.Distance(transform.position, newPos) / _speed)
                 .SetEase(Ease.Linear).OnComplete(() => StartCoroutine(StartEating()));
         }
+        else if (collision.TryGetComponent(out LevelFood food))
+        {
+            collision.gameObject.SetActive(false);
+            Game.Instance.Level.PiggyGotSomeFood(food.FoodCount);
+        }
     }
 
     IEnumerator StartEating()

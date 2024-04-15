@@ -41,7 +41,11 @@ public class Goosey : PiggyScarer
         var roadManager = Game.Instance.RoadManager;
 
         var targets = _piggies.Where(piggy => piggy.CanBeScared);
-        Piggy target = targets.ElementAt(Random.Range(0, targets.Count()));
+
+        // pick closest piggy
+        Piggy target = targets.OrderBy(p => Vector3.Distance(transform.position, p.transform.position)).FirstOrDefault();
+
+        // Piggy target = targets.ElementAt(Random.Range(0, targets.Count()));
         RoadTile targetTile = roadManager.GetRoadTileAt(target.transform.position);
 
         float ds = target.Speed * AttackTime;

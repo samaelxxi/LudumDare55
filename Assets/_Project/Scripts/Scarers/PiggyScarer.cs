@@ -25,7 +25,6 @@ public class PiggyScarer : MonoBehaviour
     void Start()
     {
         _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
-        Debug.Log(_spriteRenderer.transform.localPosition.y);
         _spriteRenderer.transform.position = _spriteRenderer.transform.position.SetZ(transform.position.y - 0.5f);
     }
 

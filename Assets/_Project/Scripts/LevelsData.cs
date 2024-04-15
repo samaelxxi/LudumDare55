@@ -7,6 +7,7 @@ using UnityEngine;
 public struct LevelData
 {
     public int RequiredPigsToWin;
+    public int PiggiesReward;
 }
 
 [CreateAssetMenu(fileName = "LevelsData", menuName = "LevelsData", order = 0)]
