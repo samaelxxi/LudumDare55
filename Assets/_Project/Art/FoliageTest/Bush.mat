@@ -20,7 +20,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Corn
+  m_Name: Bush
   m_Shader: {fileID: -6465566751694194690, guid: da55a77e0d3a7e842a30a3a53f92b862, type: 3}
   m_Parent: {fileID: 0}
   m_ModifiedSerializedProperties: 0
@@ -41,7 +41,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: 9e19f249881362f45a12b551bd1135a3, type: 3}
+        m_Texture: {fileID: 2800000, guid: 748b565ada7bab44da7d5a589a4f515f, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTexture:
