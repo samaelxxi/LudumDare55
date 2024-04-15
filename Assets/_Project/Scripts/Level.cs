@@ -30,8 +30,8 @@ public class Level : MonoBehaviour
 
     UI _ui;
 
-    int _currentFood = 0;
     int _totalFoodCollected = 0;
+    public int TotalFoodCollected => _totalFoodCollected;
     bool _goingToEndWindow;
 
 
@@ -42,12 +42,10 @@ public class Level : MonoBehaviour
         _ui.SummonMenu.OnCardClicked += SummonPiggy;
         _ui.OnEndLevelClicked += CompleteLevel;
         _ui.OnRestartLevelClicked += RestartLevel;
-        _currentFood = Game.Instance.PlayerCorn;
         _summonPoints[0].BeChosen();
         _chosenSummonPoint = _summonPoints[0];
 
         Game.Instance.OnMouseClick += OnMouseClick;
-        Game.Instance.OnCornChanged += PiggyGotSomeFood;
         Game.Instance.OnKeyNumberPressed += KeyNumberPressed;
     }
 
@@ -55,7 +53,6 @@ public class Level : MonoBehaviour
     {
         Debug.Log("Level destroyed");
         Game.Instance.OnMouseClick -= OnMouseClick;
-        Game.Instance.OnCornChanged -= PiggyGotSomeFood;
         Game.Instance.OnKeyNumberPressed -= KeyNumberPressed;
     }
 
@@ -115,8 +112,7 @@ public class Level : MonoBehaviour
 
     public void PiggyGotSomeFood(int food)
     {
-        _totalFoodCollected += food - _currentFood;
-        _currentFood = food;
+        _totalFoodCollected += food ;
         _ui.SetCurrentFoodCount(_totalFoodCollected);
     }
 

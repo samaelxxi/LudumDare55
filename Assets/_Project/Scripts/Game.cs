@@ -152,6 +152,7 @@ public class Game : Singleton<Game>
         _currentLevel = Mathf.Min(_currentLevel + 1, _maxLevel);
         _level = null;
         GoToEvolutionsScene();
+        _player.ReceiveCorn(_level.TotalFoodCollected);
     }
 
     void StartEvolution()
