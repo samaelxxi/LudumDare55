@@ -9,6 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2330262953314265062}
+  - component: {fileID: 5888015166087528341}
   m_Layer: 0
   m_Name: SignelCorn
   m_TagString: Untagged
@@ -32,6 +33,18 @@ Transform:
   - {fileID: 2717168093182718267}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5888015166087528341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1307215553602914296}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 21f4738a8e2ce8147bffd4ab4aa7085b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9139808123223783157
 GameObject:
   m_ObjectHideFlags: 0
@@ -104,7 +117,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 20
   m_Sprite: {fileID: 21300000, guid: 9e19f249881362f45a12b551bd1135a3, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
