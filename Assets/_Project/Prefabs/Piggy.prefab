@@ -135,8 +135,6 @@ MonoBehaviour:
   _hp: 200
   _foodCapacity: 20
   _spriteYOffset: 0.15
-  _jumpLength: 0.2
-  _jumpHeight: 0.3
   _spriteRenderer: {fileID: 7891835863864226506}
   _jumpCurve:
     serializedVersion: 2
@@ -189,6 +187,8 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  _smoothTime: 0.3
+  _flashMaterial: {fileID: 2100000, guid: aeffa684ffda2a543a1c6f099ff5b80c, type: 2}
 --- !u!58 &1207879821170000864
 CircleCollider2D:
   m_ObjectHideFlags: 0

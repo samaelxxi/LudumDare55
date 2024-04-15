@@ -8,68 +8,125 @@ using CarterGames;
 [SelectionBase]
 public class Goosey : PiggyScarer
 {
+    const float AttackTime = 4.0f / 12.0f;
+
     [SerializeField] GameObject _slamVFX;
     [SerializeField] Animator _slamAnimator;
 
     Vector3 _direction;
 
+
+    RoadTile _pred;
+    Vector3 _predPos;
+    Vector3 _targetPos;
+
+
+    void OnDrawGizmos()
+    {
+        if (_pred != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(_pred.transform.position, 0.5f);
+            Gizmos.color = Color.green;
+            Gizmos.DrawSphere(_predPos, 0.2f);
+            Gizmos.color = Color.blue;
+            Gizmos.DrawSphere(_targetPos, 0.2f);
+        }
+    }
+
     protected override void Attack()
     {
-        
+        // Debug.Log("Triggered attack");
+
+        var roadManager = Game.Instance.RoadManager;
+
         var targets = _piggies.Where(piggy => piggy.CanBeScared);
         Piggy target = targets.ElementAt(Random.Range(0, targets.Count()));
-        Vector3 direction = target.transform.position - transform.position;
+        RoadTile targetTile = roadManager.GetRoadTileAt(target.transform.position);
+
+        float ds = target.Speed * AttackTime;
+        var predictedPos = target.transform.position + RoadTile.Directions[targetTile.Direction].ToVector3() * ds;
+        _targetPos = target.transform.position;
+        _predPos = predictedPos;
+        var predictedTile = roadManager.GetRoadTileAt(predictedPos);
+        _pred = predictedTile;
+        // Debug.Log($"{predictedPos} {target.transform.position} {ds} {RoadTile.Directions[targetTile.Direction].ToVector3()} {predictedTile} {targetTile.Direction} {targetTile}");
+
+        if (!IsTileMyNeighbour(predictedTile))
+            return;
+
+        Vector3 direction = predictedTile.transform.position - transform.position;
         _direction = direction;
         bool isVertical = Mathf.Abs(direction.x) < Mathf.Abs(direction.y);
         RoadTile.RoadDirection dir = RoadTile.RoadDirection.Up;
         if (isVertical)
         {
             if (direction.y > 0)
-            {
-                _animator.SetTrigger("Top");
                 dir = RoadTile.RoadDirection.Up;
-            }
             else
-            {
-                _animator.SetTrigger("Down");
                 dir = RoadTile.RoadDirection.Down;
-            }
         }
         else
         {
             if (direction.x > 0)
-            {
-                _animator.SetTrigger("Right");
                 dir = RoadTile.RoadDirection.Right;
-            }
+            
             else
-            {
-                _animator.SetTrigger("Left");
                 dir = RoadTile.RoadDirection.Left;
-            }
         }
+        switch (dir)
+        {
+            case RoadTile.RoadDirection.Up:
+                _animator.SetTrigger("Top");
+                break;
+            case RoadTile.RoadDirection.Right:
+                _animator.SetTrigger("Right");
+                break;
+            case RoadTile.RoadDirection.Down:
+                _animator.SetTrigger("Down");
+                break;
+            case RoadTile.RoadDirection.Left:
+                 _animator.SetTrigger("Left");
+                 break;
+        };
+
+
         Game.Instance.AudioManager.Play("Quack1", pitch: Random.Range(0.9f, 1.1f));
-        this.InSeconds(4.0f/12.0f, delegate
+        this.InSeconds(AttackTime, delegate
         {
             _slamVFX.SetActive(true);
             _slamAnimator.Play("Slam", 0, 0);
-            _slamVFX.transform.position = transform.position + RoadTile.Directions[dir].ToVector3();
+            _slamVFX.transform.position = predictedTile.transform.position;
             
-            DamageAllOnTile(dir);
+            DamageAllOnTile(predictedTile);
         });
+        _lastAttackTime = Time.time;
     }
 
-    void DamageAllOnTile(RoadTile.RoadDirection dir)
+    bool IsTileMyNeighbour(RoadTile tile)
     {
         var roadManager = Game.Instance.RoadManager;
-        var roadTile = roadManager.GetNeighbour(transform.position, dir);
-        if (roadTile == null)
+        foreach (var dir in RoadTile.Directions.Keys)
         {
-            Debug.LogError($"No road tile found for attack on {dir}");
+            var neigh = roadManager.GetNeighbour(transform.position, dir);
+            Debug.Log($"Neigh {neigh} {tile} {dir} {neigh == tile}");
+            if (neigh == null)
+                continue;
+            if (neigh == tile)
+                return true;
+        }
+        return false;
+    }
+
+    void DamageAllOnTile(RoadTile tile)
+    {
+        if (tile == null)
+        {
+            Debug.LogError($"No road tile found for attack on ");
             return;
         }
         foreach (var piggy in _piggies.Where(p => p.CanBeScared))
-            if (roadTile == piggy.CurrentRoadTile)
+            if (Game.Instance.RoadManager.GetRoadTileAt(piggy.transform.position) == tile)
                 piggy.ReceiveNegativeVibes(_damage);
     }
 }

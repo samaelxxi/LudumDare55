@@ -31,6 +31,7 @@ public class BWOI : PiggyScarer
             var stone = Instantiate(_stonePrefab, _stoneSpawnPoint.position, Quaternion.identity).GetComponent<BWOIStone>();
             stone.SetTarget(_chosenPiggy, _damage);
         });
+        _lastAttackTime = Time.time;
     }
 
     void ChoosePiggy()

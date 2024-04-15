@@ -17,8 +17,17 @@ public class PiggyScarer : MonoBehaviour
 
     protected List<Piggy> _piggies = new();
 
-    float _lastAttackTime = 0;
+    protected float _lastAttackTime = 0;
 
+
+    SpriteRenderer _spriteRenderer;
+
+    void Start()
+    {
+        _spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        Debug.Log(_spriteRenderer.transform.localPosition.y);
+        _spriteRenderer.transform.position = _spriteRenderer.transform.position.SetZ(transform.position.y - 0.5f);
+    }
 
     void Update()
     {
@@ -27,7 +36,7 @@ public class PiggyScarer : MonoBehaviour
         if (_lastAttackTime + _rechargeTime < Time.time)
         {
             Attack();
-            _lastAttackTime = Time.time;
+            
         }
     }
 
@@ -92,9 +101,11 @@ public class PiggyScarer : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
+        // Debug.Log("Triggered");
         if (other.TryGetComponent(out Piggy piggy))
         {
-            _piggies.Add(piggy);
+            if (!_piggies.Contains(piggy))
+                _piggies.Add(piggy);
         }
     }
 
@@ -103,6 +114,7 @@ public class PiggyScarer : MonoBehaviour
         if (other.TryGetComponent(out Piggy piggy))
         {
             _piggies.Remove(piggy);
+            // Debug.LogError("Piggy left");
         }
     }
 }

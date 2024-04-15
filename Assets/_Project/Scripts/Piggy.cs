@@ -18,8 +18,10 @@ public class Piggy : MonoBehaviour
     [SerializeField] SpriteRenderer _spriteRenderer;
     [SerializeField] AnimationCurve _jumpCurve;
     [SerializeField] float _smoothTime = 0.3f;
+    [SerializeField] Material _flashMaterial;
 
     public PiggyData Data { get; private set; }
+    public float Speed => _speed;
 
     RoadTile _previousRoadTile;
     RoadTile _currentRoadTile;
@@ -78,7 +80,7 @@ public class Piggy : MonoBehaviour
 
     void MoveToCrops()
     {
-        var nextTile = Game.Instance.RoadManager.GetNeighbour(_currentRoadTile, _currentRoadTile.Direction);
+        var nextTile = Game.Instance.RoadManager.GetNeighbourTile(_currentRoadTile, _currentRoadTile.Direction);
         if (nextTile == null)
         {
             Debug.Log("Piggy can't find the next tile :(");
@@ -125,6 +127,23 @@ public class Piggy : MonoBehaviour
         _hp -= damage;
         if (_hp <= 0)
             BeScared();
+        else
+        {
+            StartCoroutine(Flash());
+        }
+        
+    }
+
+    bool _isFlashing = false;
+    IEnumerator Flash()
+    {
+        if (_isFlashing)
+            yield break;
+        _isFlashing = true;
+        Material _oldMaterial = _spriteRenderer.material;
+        _spriteRenderer.material = _flashMaterial;
+        yield return new WaitForSeconds(0.1f);
+        _spriteRenderer.material = _oldMaterial;
     }
 
     void BeScared()
@@ -136,6 +155,8 @@ public class Piggy : MonoBehaviour
         _moveTween.Kill();
         _spriteRenderer.flipX = false;
 
+
+        // TODO
         GoAlongPath();
     }
 
@@ -169,9 +190,9 @@ public class Piggy : MonoBehaviour
 
     void RunAway()
     {
-        transform.DOMove(transform.position - Vector3.left * 2, 1).OnComplete(delegate
+        transform.DOMove(transform.position + Vector3.left * 10, 10).OnComplete(delegate
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         });
     }
 

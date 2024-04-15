@@ -89,7 +89,7 @@ public class Game : Singleton<Game>
 
     void Start()
     {
-        Game.Instance.AudioManager.Play("piggyHarvest2", loop: true);
+        Game.Instance.AudioManager.Play("piggyHarvest2", loop: true, volume: 0.6f);
     }
 
     void DetectLevelsNumber()
