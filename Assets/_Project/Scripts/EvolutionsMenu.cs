@@ -54,9 +54,9 @@ public class EvolutionsMenu : MonoBehaviour
 
     public void OnMouseClick(Vector3 mousePos)
     {
-        // Debug.Log($"Mouse clicked at {mousePos}");
+        Debug.Log($"Mouse clicked at {mousePos}");
         var probablyPiggy = Physics2D.OverlapCircle(mousePos, 0.5f, LayerMask.GetMask("Piggy"));
-        // Debug.Log($"Probably piggy: {probablyPiggy}");
+        Debug.Log($"Probably piggy: {probablyPiggy}");
         if (probablyPiggy != null && probablyPiggy.TryGetComponent<PeacefulPiggy>(out var reallyPiggy))
         {
             _piggyCard.SetData(reallyPiggy.Data);

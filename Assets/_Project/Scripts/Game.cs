@@ -65,7 +65,11 @@ public class Game : Singleton<Game>
             Debug.Log("Loading audio manager");
             _audioManager = FindAnyObjectByType<AudioManager>();
             if (_audioManager == null)
+            {
                 _audioManager = Resources.Load<AudioManager>("AudioManager");
+                _audioManager = Instantiate(_audioManager);
+                DontDestroyOnLoad(_audioManager);
+            }
             // _audioManager = Resources.Load<AudioManager>("AudioManager");
             Debug.Log("Loaded audio manager" + _audioManager.name);
         }
@@ -198,6 +202,7 @@ public class Game : Singleton<Game>
     {
         if (Input.GetMouseButtonDown(0))
         {
+            Debug.Log("Mouse clicked");
             var worldPosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             OnMouseClick?.Invoke(worldPosition);
         }
