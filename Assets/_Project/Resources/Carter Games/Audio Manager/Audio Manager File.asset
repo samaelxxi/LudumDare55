@@ -21,6 +21,10 @@ MonoBehaviour:
   - Assets/_Project/Audio
   - Assets/_Project/Audio/Sounds/Oinks
   library:
+  - key: Bark1
+    value: {fileID: 8300000, guid: 2ae1a9cfc682d1147ab4102a74de564f, type: 3}
+  - key: Click
+    value: {fileID: 8300000, guid: cf86f7c2c3c39794ca641a3bc9b3d205, type: 3}
   - key: defaultUpgrade2
     value: {fileID: 8300000, guid: 066b3f2b642544c45a9d3ca8fd8dda71, type: 3}
   - key: defaultUpgrade3
@@ -61,6 +65,8 @@ MonoBehaviour:
     value: {fileID: 8300000, guid: 098a1e49444e8014e83c813f286d35f6, type: 3}
   - key: fatUpgrade3
     value: {fileID: 8300000, guid: 13e3bd7641b04b544ad0798c76638016, type: 3}
+  - key: Quack1
+    value: {fileID: 8300000, guid: 38a15e6b6ec5e9f4ba44a52a2789c6d8, type: 3}
   - key: smallOink
     value: {fileID: 8300000, guid: 850ccded9730f704c8ab664345c668e7, type: 3}
   - key: smallOink2

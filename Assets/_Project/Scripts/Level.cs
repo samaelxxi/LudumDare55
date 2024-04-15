@@ -78,6 +78,7 @@ public class Level : MonoBehaviour
 
     public void CompleteLevel()
     {
+        Game.Instance.AudioManager.Play("Click", pitch: UnityEngine.Random.Range(0.9f, 1.1f));
         OnLevelCompleted?.Invoke();
     }
 
@@ -90,7 +91,11 @@ public class Level : MonoBehaviour
     public void OnMouseClick(Vector3 worldPosition)
     {
         TryChooseSummonPoint(worldPosition);
-        LevelMouseClick(worldPosition);
+
+        RoadManager.TrySwitchRoadTileAt(worldPosition);
+        var t = RoadManager.GetRoadTileAt(worldPosition);
+        if (t != null)
+            Debug.Log(t.Position);
     }
 
     void SummonPiggy(PiggyData piggyData)
@@ -126,14 +131,5 @@ public class Level : MonoBehaviour
             _chosenSummonPoint.BeUnchosen();
         _chosenSummonPoint = summonPoint;
         _chosenSummonPoint.BeChosen();
-    }
-
-    void LevelMouseClick(Vector3 worldPosition)
-    {
-        RoadManager.TrySwitchRoadTileAt(worldPosition);
-
-        var t = RoadManager.GetRoadTileAt(worldPosition);
-        if (t != null)
-            Debug.Log(t.Position);
     }
 }

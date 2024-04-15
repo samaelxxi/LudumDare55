@@ -38,6 +38,7 @@ public class SummonCard : MonoBehaviour
     {
         if (Quantity > 0)
         {
+            Game.Instance.AudioManager.Play("Click", pitch: UnityEngine.Random.Range(0.9f, 1.1f));
             OnCardClicked?.Invoke(_data);
             Quantity--;
             _quantity.text = Quantity.ToString();

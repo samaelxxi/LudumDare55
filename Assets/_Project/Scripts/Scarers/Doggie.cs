@@ -19,7 +19,7 @@ public class Doggie : PiggyScarer
             // _barkVFX.transform.position = transform.position + RoadTile.Directions[dir].ToVector3();
             // target.ReceiveNegativeVibes(_damage);
             AttackAOE();
-            Game.Instance.AudioManager.Play("Bark1");
+            Game.Instance.AudioManager.Play("Bark1", pitch: Random.Range(0.9f, 1.1f));
         });
     }
 }

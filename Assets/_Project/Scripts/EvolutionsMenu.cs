@@ -61,8 +61,7 @@ public class EvolutionsMenu : MonoBehaviour
         {
             _piggyCard.SetData(reallyPiggy.Data);
             _selectedPiggy = reallyPiggy;
-            Log.Info($"Piggy clicked: {reallyPiggy.name} {Game.Instance.AudioManager}");
-            Game.Instance.AudioManager.PlayRange(Oinks.GetOinks(_selectedPiggy.Data.Type, _selectedPiggy.Data.Rank));
+            Game.Instance.AudioManager.PlayRange(Oinks.GetOinks(_selectedPiggy.Data.Type, _selectedPiggy.Data.Rank), pitch: Random.Range(0.9f, 1.1f));
             // Debug.Log($"Piggy clicked: {probablyPiggy.name}");
         }
     }
@@ -110,6 +109,7 @@ public class EvolutionsMenu : MonoBehaviour
         Log.Info("BuyNewPiggy");
         if (Game.Instance.CanBuyNewPiggy)
         {
+            Game.Instance.AudioManager.Play("Click", pitch: UnityEngine.Random.Range(0.9f, 1.1f));
             var newPiggy = Game.Instance.BuyNewPiggy();
             var newPiggyAvatar = CreateNewPiggy();
             newPiggyAvatar.SetData(newPiggy);
@@ -118,7 +118,7 @@ public class EvolutionsMenu : MonoBehaviour
             if (Game.Instance.PiggiesQuantity == Game.Instance.PiggyEvolutions.MaxPiggies)
                 _buyNewPiggyButton.interactable = false;
             _newPiggyCostText.text = Game.Instance.NewPiggyCost.ToString();
-            Game.Instance.AudioManager.PlayRange(Oinks.GetOinks(PiggyType.Normal, 0));
+            Game.Instance.AudioManager.PlayRange(Oinks.GetOinks(PiggyType.Normal, 0), pitch: Random.Range(0.9f, 1.1f));
         }
         else
             Debug.Log("Not enough corn or a lot piggies");
@@ -130,13 +130,14 @@ public class EvolutionsMenu : MonoBehaviour
         if (_selectedPiggy == null) return;
         if (Game.Instance.PlayerCorn >= _selectedPiggy.Data.UpgradeCost)
         {
+            Game.Instance.AudioManager.Play("Click", pitch: UnityEngine.Random.Range(0.9f, 1.1f));
             Debug.Log($"Changing piggy type to fast {_selectedPiggy.Data.Rank}");
             Game.Instance.UpgradePiggyRank(_selectedPiggy.Data);
             Debug.Log($"Changing piggy type to fast {_selectedPiggy.Data.Rank}");
             _piggyCard.SetData(_selectedPiggy.Data);
             _selectedPiggy.UpdateData();
             Log.Info("Rank upgraded");
-            Game.Instance.AudioManager.Play(Oinks.GetUpgradeOink(_selectedPiggy.Data.Type, _selectedPiggy.Data.Rank));
+            Game.Instance.AudioManager.Play(Oinks.GetUpgradeOink(_selectedPiggy.Data.Type, _selectedPiggy.Data.Rank), pitch: Random.Range(0.9f, 1.1f));
         }
         else
             Debug.Log("Not enough corn");
@@ -149,10 +150,11 @@ public class EvolutionsMenu : MonoBehaviour
         if (_selectedPiggy == null) return;
         if (Game.Instance.PlayerCorn >= Game.Instance.PiggyEvolutions.MakeFatCost)
         {
+            Game.Instance.AudioManager.Play("Click", pitch: UnityEngine.Random.Range(0.9f, 1.1f));
             Game.Instance.ChangePiggyType(_selectedPiggy.Data, PiggyType.Fat);
             _piggyCard.SetData(_selectedPiggy.Data);
             _selectedPiggy.UpdateData();
-            Game.Instance.AudioManager.Play(Oinks.GetUpgradeOink(_selectedPiggy.Data.Type, _selectedPiggy.Data.Rank));
+            Game.Instance.AudioManager.Play(Oinks.GetUpgradeOink(_selectedPiggy.Data.Type, _selectedPiggy.Data.Rank), pitch: Random.Range(0.9f, 1.1f));
         }
         else
             Debug.Log("Not enough corn");
@@ -164,12 +166,13 @@ public class EvolutionsMenu : MonoBehaviour
         if (_selectedPiggy == null) return;
         if (Game.Instance.PlayerCorn >= Game.Instance.PiggyEvolutions.MakeFastCost)
         {
+            Game.Instance.AudioManager.Play("Click", pitch: UnityEngine.Random.Range(0.9f, 1.1f));
             Debug.Log($"Changing piggy type to fast {_selectedPiggy.Data.Speed}");
             Game.Instance.ChangePiggyType(_selectedPiggy.Data, PiggyType.Fast);
             Debug.Log($"Changing piggy type to fast {_selectedPiggy.Data.Speed}");
             _piggyCard.SetData(_selectedPiggy.Data);
             _selectedPiggy.UpdateData();
-            Game.Instance.AudioManager.Play(Oinks.GetUpgradeOink(_selectedPiggy.Data.Type, _selectedPiggy.Data.Rank));
+            Game.Instance.AudioManager.Play(Oinks.GetUpgradeOink(_selectedPiggy.Data.Type, _selectedPiggy.Data.Rank), pitch: Random.Range(0.9f, 1.1f));
         }
         else
             Debug.Log("Not enough corn");

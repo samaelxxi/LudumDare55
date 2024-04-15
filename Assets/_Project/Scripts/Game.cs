@@ -36,6 +36,8 @@ public class Game : Singleton<Game>
 
     public bool IsAwaken = false;
 
+    bool _setupedThisScene = false;
+
     enum GameState { Harvest, Upgrade, Menu }
 
     GameState _state = GameState.Harvest;
@@ -76,6 +78,10 @@ public class Game : Singleton<Game>
 
         DetectLevelsNumber();
         IsAwaken = true;
+
+        Debug.Log("Game awake" + gameObject.name + _setupedThisScene);
+        if (!_setupedThisScene)
+            OnSceneLoaded();  // idk sometimes it subscribes before scene loaded sometimes after
     }
 
     void Start()
@@ -100,12 +106,20 @@ public class Game : Singleton<Game>
 
     void OnSceneLoaded()
     {
+        Debug.Log("Scene loaded" + SceneManager.GetActiveScene().name);
         if (FindFirstObjectByType<Level>() != null)
+        {
+            Debug.Log("Level loaded");
             StartLevel();
+        }
         else if (FindAnyObjectByType<EvolutionsMenu>() != null)
+        {
+            Debug.Log("Evolutions loaded");
             StartEvolution();
+        }
         else
             _state = GameState.Menu;  // idk
+        _setupedThisScene = true;
     }
 
     void InitTestPigs()
@@ -151,22 +165,26 @@ public class Game : Singleton<Game>
     {
         _evolutionsMenu = FindAnyObjectByType<EvolutionsMenu>();
         _state = GameState.Upgrade;
+        Debug.Log("Starting evolutions");
         _evolutionsMenu.OnEvolutionsEnd += ExitEvolutions;
     }
 
     void ExitEvolutions()
     {
+        Debug.Log("Exiting evolutions");
         _evolutionsMenu = null;
         GoToNextLevelScene();
     }
 
     void GoToEvolutionsScene()
     {
+        _setupedThisScene = false;
         SceneManager.LoadScene("Evolutions");
     }
 
     void GoToNextLevelScene()
     {
+        _setupedThisScene = false;
         if (SceneManager.GetSceneByName("Level" + _currentLevel) != null)
             SceneManager.LoadScene("Level" + _currentLevel);
         else
