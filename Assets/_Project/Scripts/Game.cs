@@ -152,9 +152,9 @@ public class Game : Singleton<Game>
     {
         Debug.Log("Starting level");
         _level = FindFirstObjectByType<Level>();
-        _level.OnLevelCompleted += CompleteLevel;
+        _level.OnLevelCompleted += CompleteLevel;        _state = GameState.Harvest;
+
         _currentLevel = int.Parse(SceneManager.GetActiveScene().name.Substring(5));
-        _state = GameState.Harvest;
     }
 
     void CompleteLevel()
