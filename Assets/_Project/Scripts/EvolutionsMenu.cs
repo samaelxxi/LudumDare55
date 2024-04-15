@@ -42,7 +42,6 @@ public class EvolutionsMenu : MonoBehaviour
 
         Game.Instance.OnMouseClick += OnMouseClick;
         //_selectedArrow.transform.DOMoveY(_selectedArrow.transform.localPosition.y + 0.2f, 1).SetLoops(-1, LoopType.Yoyo);
-
     }
 
     void OnDestroy()
@@ -71,6 +70,7 @@ public class EvolutionsMenu : MonoBehaviour
 
     public IEnumerator QueueNewPigs(int newPigs)
     {
+        Debug.Log($"Queueing {newPigs} new pigs");
         yield return new WaitForSeconds(1);
         for (int i = 0; i < newPigs; i++)
         {
@@ -79,7 +79,7 @@ public class EvolutionsMenu : MonoBehaviour
             piggy.SetData(piggyData);
             piggy.SetWalkArea(_piggiesHomeCollider);
 
-            piggy.transform.DOScale(Vector3.one*1.5f, 0.5f).SetEase(Ease.OutBack).OnComplete(() => piggy.transform.DOShakeScale(0.5f, 0.5f, 5, 40));
+            piggy.transform.DOScale(Vector3.one * piggy.transform.localScale.x, 0.5f).SetEase(Ease.OutBack).OnComplete(() => piggy.transform.DOShakeScale(0.5f, 0.5f, 5, 40));
             piggy.transform.DOShakeRotation(1, new Vector3(0, 0, Random.Range(30, 60) * (Random.value > 0.3f ? 1 : -1)), 
                     1, randomnessMode:ShakeRandomnessMode.Harmonic);
             piggy.transform.DOJump(piggy.transform.position, 1, 1, 1);

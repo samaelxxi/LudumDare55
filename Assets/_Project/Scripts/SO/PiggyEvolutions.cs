@@ -17,6 +17,7 @@ public class PiggyEvolutions : ScriptableObject
     [field: SerializeField] public int ExtraNewPiggyCost { get; private set; }
     [field: SerializeField] public int MaxPiggies { get; private set; }
     [field: SerializeField] public int LevelsNum { get; private set; }
+    [field: SerializeField] public int StartFood { get; private set; }
 
     public PiggyData GetNextEvolution(PiggyType type, int rank)
     {

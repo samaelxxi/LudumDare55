@@ -28,12 +28,15 @@ public class Level : MonoBehaviour
 
     public IEnumerable<Piggy> SummonedPiggies => _summonedPiggies;
     public int RequiredPigsToWin => _levelData.RequiredPigsToWin;
+    public int PiggiesReward => _levelData.PiggiesReward;
 
     UI _ui;
 
     int _totalFoodCollected = 0;
     public int TotalFoodCollected => _totalFoodCollected;
     bool _goingToEndWindow;
+
+    public event Action OnRestartLevel;
 
 
     void Start()
@@ -55,6 +58,7 @@ public class Level : MonoBehaviour
         Debug.Log("Level destroyed");
         Game.Instance.OnMouseClick -= OnMouseClick;
         Game.Instance.OnKeyNumberPressed -= KeyNumberPressed;
+        
     }
 
     void KeyNumberPressed(int number)
@@ -108,7 +112,7 @@ public class Level : MonoBehaviour
 
     public void RestartLevel()
     {
-        Debug.Log("Restarting level");
+        OnRestartLevel?.Invoke();
     }
 
     public void PiggyGotSomeFood(int food)

@@ -12,7 +12,7 @@ public class Player
         "Pop", "Donut", "Porky"
     };
 
-    public int Corn { get; private set; } = 900;
+    public int Corn { get; private set; } = 0;
 
     public event System.Action<int> OnCornChanged;
 

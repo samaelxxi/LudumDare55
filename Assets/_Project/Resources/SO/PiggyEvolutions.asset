@@ -24,7 +24,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: f5d2ddbe9dc011b4a8b81f6fd4eac15d, type: 2}
   - {fileID: 11400000, guid: 3301c63496d45d14ca286cf950cecffb, type: 2}
   - {fileID: 11400000, guid: ff1e0e5090b8c4941bd1c72cc4ba3e8f, type: 2}
-  <InitialPiggies>k__BackingField: 9
+  <InitialPiggies>k__BackingField: 4
   <MakeFatCost>k__BackingField: 25
   <MakeFastCost>k__BackingField: 25
   <BasePiggyCost>k__BackingField: 40

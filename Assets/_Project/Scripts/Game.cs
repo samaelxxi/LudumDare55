@@ -33,6 +33,7 @@ public class Game : Singleton<Game>
 
     public event Action<Vector3> OnMouseClick;
     public event Action<int> OnKeyNumberPressed;
+    public event Action OnRestartLevel;
 
     public bool IsAwaken = false;
 
@@ -76,7 +77,8 @@ public class Game : Singleton<Game>
         }
 
         _player = new Player(PiggyEvolutions.Normal[0], PiggyEvolutions.InitialPiggies);
-        InitTestPigs();
+        _player.ReceiveCorn(PiggyEvolutions.StartFood);
+        // InitTestPigs();
         
         // Debug.Log("Game awake 2" + gameObject.name);
         SceneManager.sceneLoaded += (scene, mode) => OnSceneLoaded();
@@ -146,26 +148,38 @@ public class Game : Singleton<Game>
     {
         _level = FindFirstObjectByType<Level>();
         _level.OnLevelCompleted += CompleteLevel;
+        _level.OnRestartLevel += RestartLevel;
         _state = GameState.Harvest;
         _currentLevel = int.Parse(SceneManager.GetActiveScene().name.Substring(5));
+    }
+
+    void RestartLevel()
+    {
+        if (_currentLevel > 1)
+            GoToEvolutionsScene();
+        else
+            GoToNextLevelScene();
     }
 
     void CompleteLevel()
     {
         Debug.Log("Level completed" + _currentLevel + " totalLevels: " + _maxLevel);
         _currentLevel = Mathf.Min(_currentLevel + 1, _maxLevel);
+        PiggiesToAdd = _level.PiggiesReward;
+        _player.ReceiveCorn(_level.TotalFoodCollected);
         _level = null;
         GoToEvolutionsScene();
-        _player.ReceiveCorn(_level.TotalFoodCollected);
     }
 
     void StartEvolution()
     {
         _evolutionsMenu = FindAnyObjectByType<EvolutionsMenu>();
-        PiggiesToAdd = 2;
-        Debug.Log("Starting evolutions" + PiggiesToAdd);
+        // Debug.Log("Starting evolutions" + PiggiesToAdd + " " + _evolutionsMenu);
         if (PiggiesToAdd > 0)
-            _evolutionsMenu.QueueNewPigs(PiggiesToAdd);
+        {
+            StartCoroutine(_evolutionsMenu.QueueNewPigs(PiggiesToAdd));
+            PiggiesToAdd = 0;
+        }
         _state = GameState.Upgrade;
         Debug.Log("Starting evolutions");
         _evolutionsMenu.OnEvolutionsEnd += ExitEvolutions;

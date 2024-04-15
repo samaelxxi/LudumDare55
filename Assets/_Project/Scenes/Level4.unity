@@ -11777,6 +11777,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1094409349391378001, guid: 5126aa311c73a76459d29edaa92af7c9, type: 3}
+      propertyPath: m_SortingOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5035202417070734490, guid: 5126aa311c73a76459d29edaa92af7c9, type: 3}
       propertyPath: m_Name
       value: Bush (8)
@@ -14334,6 +14338,7 @@ MonoBehaviour:
   _currentLevel: 1
   _audioManager: {fileID: 0}
   IsAwaken: 0
+  PiggiesToAdd: 0
 --- !u!4 &1444142665
 Transform:
   m_ObjectHideFlags: 0

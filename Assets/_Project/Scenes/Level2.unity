@@ -13290,38 +13290,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 563e5d11e632cb5428d482dcce5cd0be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1127727743 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4214429466752925971, guid: 3acbb5d82be6eab40abb6a18d328ebd3, type: 3}
-  m_PrefabInstance: {fileID: 1708355933}
-  m_PrefabAsset: {fileID: 0}
---- !u!50 &1127727749
-Rigidbody2D:
-  serializedVersion: 4
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1127727743}
-  m_BodyType: 1
-  m_Simulated: 1
-  m_UseFullKinematicContacts: 0
-  m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
-  m_GravityScale: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
-  m_Constraints: 0
 --- !u!114 &1130646482 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5762346268663747139, guid: a64116d8dda2a074e8566753507b7645, type: 3}
@@ -14311,6 +14279,7 @@ MonoBehaviour:
   _currentLevel: 1
   _audioManager: {fileID: 0}
   IsAwaken: 0
+  PiggiesToAdd: 0
 --- !u!4 &1444142665
 Transform:
   m_ObjectHideFlags: 0
@@ -15684,10 +15653,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 4214429466752925971, guid: 3acbb5d82be6eab40abb6a18d328ebd3, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1127727749}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3acbb5d82be6eab40abb6a18d328ebd3, type: 3}
 --- !u!114 &1726414509 stripped
 MonoBehaviour:
@@ -17050,6 +17016,10 @@ PrefabInstance:
     - target: {fileID: 428608425475755678, guid: 99dc3b71b6f2e8243a00b7790ef686c8, type: 3}
       propertyPath: m_Name
       value: Probs
+      objectReference: {fileID: 0}
+    - target: {fileID: 4458580838273728301, guid: 99dc3b71b6f2e8243a00b7790ef686c8, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7132991687441713191, guid: 99dc3b71b6f2e8243a00b7790ef686c8, type: 3}
       propertyPath: m_LocalPosition.x

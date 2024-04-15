@@ -1023,7 +1023,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_UiScaleMode: 1
-  m_ReferencePixelsPerUnit: 32
+  m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1600, y: 900}
   m_ScreenMatchMode: 0
@@ -9075,7 +9075,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4782019114377946452, guid: 752d64caf401249409f1ec5eb0b9be06, type: 3}
       propertyPath: m_NormalizedViewPortRect.height
-      value: 0.9997271
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9192830686396228345, guid: 752d64caf401249409f1ec5eb0b9be06, type: 3}
       propertyPath: m_Name

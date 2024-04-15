@@ -1603,7 +1603,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 8527199732380112683}
         m_TargetAssemblyTypeName: UI, Assembly-CSharp
-        m_MethodName: EndLevelClicked
+        m_MethodName: RestartLevel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2098,7 +2098,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 75
+  m_text: 750
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9775681f388ceea428e7206911791d5f, type: 2}
   m_sharedMaterial: {fileID: -70467292066374725, guid: 9775681f388ceea428e7206911791d5f, type: 2}
@@ -2125,8 +2125,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 30
-  m_fontSizeBase: 30
+  m_fontSize: 26
+  m_fontSizeBase: 26
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -2161,7 +2161,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 128.14142, y: 0, z: 0, w: 0}
+  m_margin: {x: 118.10388, y: 0, z: -9.651611, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -2450,7 +2450,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 25, y: 0}
+  m_AnchoredPosition: {x: 10, y: 0}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &8897711733082859412
@@ -2846,7 +2846,7 @@ GameObject:
   - component: {fileID: 6411757692239102589}
   - component: {fileID: 9216641439915276252}
   m_Layer: 5
-  m_Name: Continue
+  m_Name: Restart
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

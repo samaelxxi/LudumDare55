@@ -32,6 +32,8 @@ public class UI : MonoBehaviour
     void Start()
     {
         InitSummonMenu();
+        SetHappyPigsCount(0);
+        SetCurrentFoodCount(0);
     }
 
     public void InitSummonMenu()
