@@ -10,6 +10,8 @@ public class Level : MonoBehaviour
 
     [SerializeField] SummonPoint[] SummonPoints => _summonPoints;
 
+    [SerializeField] LevelData _levelData;
+
     public RoadManager RoadManager { get; private set; }
 
     public event Action OnLevelCompleted;
@@ -39,6 +41,7 @@ public class Level : MonoBehaviour
         _ui = FindFirstObjectByType<UI>();
         _ui.SummonMenu.OnCardClicked += SummonPiggy;
         _ui.OnEndLevelClicked += CompleteLevel;
+        _ui.OnRestartLevelClicked += RestartLevel;
         _currentFood = Game.Instance.PlayerCorn;
         _summonPoints[0].BeChosen();
         _chosenSummonPoint = _summonPoints[0];
@@ -62,12 +65,19 @@ public class Level : MonoBehaviour
             ChooseSummonPoint(_summonPoints[number - 1]);
     }
 
+
+    int _currentHappyPigsCount = 0;
     void Update()
     {
         if (!_goingToEndWindow && IsLevelCompleted())
         {
             _goingToEndWindow = true;
             this.InSeconds(2, ShowEndWindow);
+        }
+        if (_currentHappyPigsCount != HappyPigsCount())
+        {
+            _currentHappyPigsCount = HappyPigsCount();
+            _ui.SetHappyPigsCount(_currentHappyPigsCount);
         }
     }
 
@@ -82,10 +92,32 @@ public class Level : MonoBehaviour
         OnLevelCompleted?.Invoke();
     }
 
+    public bool IsLevelSucceed()
+    {
+        return _summonedPiggyNames.Count == Game.Instance.PiggiesQuantity && 
+                _summonedPiggies.Where(piggy => piggy.IsGotSomeFood).Count() >= _levelData.RequiredPigsToWin;
+    }
+
+    public int GetFoodCollected()
+    {
+        return _totalFoodCollected;
+    }
+
+    public int HappyPigsCount()
+    {
+        return _summonedPiggies.Where(piggy => piggy.IsGotSomeFood).Count();
+    }
+
+    public void RestartLevel()
+    {
+        Debug.Log("Restarting level");
+    }
+
     public void PiggyGotSomeFood(int food)
     {
         _totalFoodCollected += food - _currentFood;
         _currentFood = food;
+        _ui.SetCurrentFoodCount(_totalFoodCollected);
     }
 
     public void OnMouseClick(Vector3 worldPosition)

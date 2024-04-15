@@ -6,11 +6,16 @@ using UnityEngine;
 [System.Serializable]
 public struct LevelData
 {
-    public int _requiredPigsToWin;
+    public int RequiredPigsToWin;
 }
 
 [CreateAssetMenu(fileName = "LevelsData", menuName = "LevelsData", order = 0)]
 public class LevelsData : ScriptableObject
 {
     [SerializeField] List<LevelData> _levelsData;
+
+    public LevelData GetLevelData(int level)
+    {
+        return _levelsData[level];
+    }
 }

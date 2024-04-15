@@ -57,7 +57,7 @@ public class Piggy : MonoBehaviour
         {
             _jumpTime += Time.deltaTime;
             float jumpLength = 1 / _speed;
-            float jumpHeight = jumpLength - 0.1f;
+            float jumpHeight = Mathf.Max(jumpLength - 0.1f, 0.2f);
             float y = _jumpCurve.Evaluate(_jumpTime / jumpLength);
             var newPos = _spriteRenderer.transform.localPosition.SetY(y * jumpHeight + _spriteYOffset);
             _spriteRenderer.transform.localPosition = Vector3.Lerp(_spriteRenderer.transform.localPosition, newPos, _smoothTime);
@@ -125,13 +125,9 @@ public class Piggy : MonoBehaviour
         if (!CanBeScared)
             return;
         _hp -= damage;
+        StartCoroutine(Flash());
         if (_hp <= 0)
             BeScared();
-        else
-        {
-            StartCoroutine(Flash());
-        }
-        
     }
 
     bool _isFlashing = false;
@@ -144,19 +140,18 @@ public class Piggy : MonoBehaviour
         _spriteRenderer.material = _flashMaterial;
         yield return new WaitForSeconds(0.1f);
         _spriteRenderer.material = _oldMaterial;
+        _isFlashing = false;
     }
 
     void BeScared()
     {
         _isScared = true;
         _currentPath = Game.Instance.RoadManager.GetPathToEscape(_currentRoadTile);
-        _speed = 8;
+        _speed = 6;
         _currentPath.RemoveAt(0); // Remove the current tile from the path
         _moveTween.Kill();
         _spriteRenderer.flipX = false;
 
-
-        // TODO
         GoAlongPath();
     }
 
