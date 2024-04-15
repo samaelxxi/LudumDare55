@@ -5,6 +5,8 @@ using DG.Tweening;
 using UnityEditor;
 using System;
 using Random = UnityEngine.Random;
+using TMPro;
+
 
 [SelectionBase]
 public class Piggy : MonoBehaviour
@@ -19,6 +21,8 @@ public class Piggy : MonoBehaviour
     [SerializeField] AnimationCurve _jumpCurve;
     [SerializeField] float _smoothTime = 0.3f;
     [SerializeField] Material _flashMaterial;
+
+    [SerializeField] TMP_Text _foodText;
 
     public PiggyData Data { get; private set; }
     public float Speed => _speed;
@@ -172,7 +176,6 @@ public class Piggy : MonoBehaviour
     {
         if (collision.TryGetComponent(out PiggyEndZone endZone))
         {
-            Oink();
             _moveTween.Kill();
             var newPos = endZone.GetFreePosition();
             _isEating = true;
@@ -182,9 +185,8 @@ public class Piggy : MonoBehaviour
         else if (collision.TryGetComponent(out LevelFood food))
         {
             Debug.Log("Piggy got some food");
-            Oink();
             collision.gameObject.SetActive(false);
-            Game.Instance.Level.PiggyGotSomeFood(food.FoodCount);
+            GetSomeFood(food.FoodCount);
         }
     }
 
@@ -194,11 +196,22 @@ public class Piggy : MonoBehaviour
         Game.Instance.AudioManager.PlayRange(myOiks, pitch: Random.Range(0.9f, 1.1f));
     }
 
+    void GetSomeFood(int food)
+    {
+        Oink();
+        _foodText.text = "+" + _foodCapacity.ToString();
+        _foodText.transform.DOLocalMoveY(0.5f, 0);
+        _foodText.DOColor(Color.white, 0);
+        _foodText.DOColor(Color.clear, 1).SetDelay(1);
+        _foodText.transform.DOLocalMoveY(0.75f, 1).SetEase(Ease.OutBack);
+        Game.Instance.Level.PiggyGotSomeFood(food);
+    }
+
     IEnumerator StartEating()
     {
         _spriteRenderer.transform.position = _spriteRenderer.transform.position.SetZ(_spriteRenderer.transform.position.y);
-        Game.Instance.Level.PiggyGotSomeFood(_foodCapacity);
         // Debug.Log("Start eating");
+        GetSomeFood(_foodCapacity);
         while (true)
         {
             _shouldJump = false;

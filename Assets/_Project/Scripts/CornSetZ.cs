@@ -8,6 +8,6 @@ public class CornSetZ : MonoBehaviour
     void Start()
     {
         var sprite = GetComponentInChildren<SpriteRenderer>();
-        sprite.transform.position = sprite.transform.position.SetZ(transform.position.y - 0.5f);
+        sprite.transform.position = sprite.transform.position.SetZ(transform.position.y);
     }
 }

@@ -25,9 +25,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3301c63496d45d14ca286cf950cecffb, type: 2}
   - {fileID: 11400000, guid: ff1e0e5090b8c4941bd1c72cc4ba3e8f, type: 2}
   <InitialPiggies>k__BackingField: 4
-  <MakeFatCost>k__BackingField: 25
-  <MakeFastCost>k__BackingField: 25
-  <BasePiggyCost>k__BackingField: 40
-  <ExtraNewPiggyCost>k__BackingField: 5
+  <MakeFatCost>k__BackingField: 20
+  <MakeFastCost>k__BackingField: 20
+  <BasePiggyCost>k__BackingField: 1
+  <ExtraNewPiggyCost>k__BackingField: 0
   <MaxPiggies>k__BackingField: 15
-  <LevelsNum>k__BackingField: 3
+  <LevelsNum>k__BackingField: 7
+  <StartFood>k__BackingField: 0

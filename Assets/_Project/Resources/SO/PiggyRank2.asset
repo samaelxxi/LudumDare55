@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: PiggyRank2
   m_EditorClassIdentifier: 
   <Speed>k__BackingField: 3
-  <Health>k__BackingField: 20
+  <Health>k__BackingField: 36
   <Fattiness>k__BackingField: 100
-  <FoodCapacity>k__BackingField: 30
+  <FoodCapacity>k__BackingField: 15
   <Type>k__BackingField: 0
   <Rank>k__BackingField: 2
   <Sprite>k__BackingField: {fileID: 937131647, guid: 4ed3aa31c458d2940aa68cccacf83dfd, type: 3}

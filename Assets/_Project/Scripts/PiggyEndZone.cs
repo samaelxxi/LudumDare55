@@ -61,7 +61,7 @@ public class PiggyEndZone : MonoBehaviour
         {
             Vector3 pos = _availablePositions[UnityEngine.Random.Range(0, _availablePositions.Count)];
             _piggyDist = (_collider.size.y-1) / (9 - 1);
-            pos += new Vector3(UnityEngine.Random.Range(-_collider.size.x/5, _collider.size.x/2), 
+            pos += new Vector3(UnityEngine.Random.Range(-0, _collider.size.x/2), 
                               UnityEngine.Random.Range(-_piggyDist * 0.4f, _piggyDist * 0.4f), 0);
             Gizmos.DrawSphere(pos, 0.1f);
         }

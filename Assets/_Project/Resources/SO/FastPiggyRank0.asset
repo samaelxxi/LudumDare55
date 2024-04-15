@@ -13,11 +13,11 @@ MonoBehaviour:
   m_Name: FastPiggyRank0
   m_EditorClassIdentifier: 
   <Speed>k__BackingField: 2.5
-  <Health>k__BackingField: 20
+  <Health>k__BackingField: 18
   <Fattiness>k__BackingField: 60
-  <FoodCapacity>k__BackingField: 30
+  <FoodCapacity>k__BackingField: 15
   <Type>k__BackingField: 2
   <Rank>k__BackingField: 0
   <Sprite>k__BackingField: {fileID: 1686540445, guid: 4ed3aa31c458d2940aa68cccacf83dfd, type: 3}
   <Avatar>k__BackingField: {fileID: -1886000029, guid: 91e457751dcc87344ab05774e227471b, type: 3}
-  <UpgradeCost>k__BackingField: 30
+  <UpgradeCost>k__BackingField: 35

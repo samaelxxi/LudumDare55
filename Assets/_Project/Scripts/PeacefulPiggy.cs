@@ -51,7 +51,7 @@ public class PeacefulPiggy : MonoBehaviour
         else
             Move();
 
-        transform.position = transform.position.SetZ(transform.position.y);
+        _spriteRenderer.transform.position = _spriteRenderer.transform.position.SetZ(transform.position.y);
     }
 
     void Move()

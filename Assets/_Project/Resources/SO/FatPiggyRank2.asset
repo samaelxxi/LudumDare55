@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: FatPiggyRank2
   m_EditorClassIdentifier: 
   <Speed>k__BackingField: 2.75
-  <Health>k__BackingField: 60
+  <Health>k__BackingField: 41
   <Fattiness>k__BackingField: 180
-  <FoodCapacity>k__BackingField: 30
+  <FoodCapacity>k__BackingField: 15
   <Type>k__BackingField: 1
   <Rank>k__BackingField: 2
   <Sprite>k__BackingField: {fileID: 1674353732, guid: 4ed3aa31c458d2940aa68cccacf83dfd, type: 3}
