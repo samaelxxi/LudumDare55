@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59561578086795a41a08cca2d3522bcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 20
+  _damage: 5
   _rechargeTime: 1
   _attackType: 0
   _animator: {fileID: 3585856138291379029}
@@ -88,7 +88,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 3
+  m_Radius: 5
 --- !u!1 &7266544604919893891
 GameObject:
   m_ObjectHideFlags: 0
