@@ -5,31 +5,31 @@ using UnityEngine;
 public static class Oinks
 {
     public static List<string> default1Oinks = new()
-    { "smallOink", "smallOink2" };
+    { "smallOink", "smallOink2", "smallOink3" };
 
     public static List<string> default2Oinks = new()
-    { "smallOink3", "smallOink34" };
+    { "smallOink", "smallOink3", "smallOink34" };
 
     public static List<string> default3Oinks = new()
-    { "smallOink34", "smallOink35" };
+    { "smallOink2", "smallOink34", "smallOink35" };
 
     public static List<string> fat1Oinks = new()
-    { "fat1Oink1", "fat1Oink2" };
+    { "fat1Oink1", "fat1Oink2", "fat2Oink1" };
 
     public static List<string> fat2Oinks = new()
-    { "fat2Oink1", "fat2Oink2" };
+    { "fat2Oink1", "fat2Oink2", "fat3Oink1" };
 
     public static List<string> fat3Oinks = new()
-    { "fat3Oink1", "fat3Oink2" };
+    { "fat3Oink1", "fat3Oink2", "fat2Oink2" };
 
     public static List<string> fast1Oinks = new()
-    { "fast1Oink1", "fast1Oink2" };
+    { "fast1Oink1", "fast1Oink2", "fast2Oink1" };
 
     public static List<string> fast2Oinks = new()
-    { "fast2Oink1", "fast2Oink2" };
+    { "fast2Oink1", "fast2Oink2", "fast3Oink1" };
 
     public static List<string> fast3Oinks = new()
-    { "fast3Oink1", "fast3Oink2" };
+    { "fast3Oink1", "fast3Oink2", "fast2Oink2" };
 
     public static List<string> defaultUpgrades = new()
     { null, "defaultUpgrade2", "defaultUpgrade3" };

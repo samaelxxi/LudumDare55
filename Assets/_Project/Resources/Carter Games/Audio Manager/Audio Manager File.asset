@@ -12,19 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 19ae0c8eafd7263429865ae0f6fe29e6, type: 3}
   m_Name: Audio Manager File
   m_EditorClassIdentifier: 
-  tabPos: 1
+  tabPos: 0
   audioMixer:
   - {fileID: 0}
   soundPrefab: {fileID: 322064603624763291, guid: f97cb5ab9dca8bd488116e0ffc057e10, type: 3}
   isPopulated: 1
   directory:
-  - Assets/_Project/Audio
+  - Assets/_Project/Audio/Sounds
+  - Assets/_Project/Audio/Music
   - Assets/_Project/Audio/Sounds/Oinks
   library:
   - key: Bark1
     value: {fileID: 8300000, guid: 2ae1a9cfc682d1147ab4102a74de564f, type: 3}
   - key: Click
     value: {fileID: 8300000, guid: cf86f7c2c3c39794ca641a3bc9b3d205, type: 3}
+  - key: piggyHarvest2
+    value: {fileID: 8300000, guid: b3c2444622cc34f4e9abb09b554e247f, type: 3}
   - key: defaultUpgrade2
     value: {fileID: 8300000, guid: 066b3f2b642544c45a9d3ca8fd8dda71, type: 3}
   - key: defaultUpgrade3
