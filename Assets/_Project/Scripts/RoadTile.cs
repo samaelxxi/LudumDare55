@@ -119,6 +119,7 @@ public class RoadTile : MonoBehaviour
 
     private void SetAnimationFrame(string animationName, int layer, float normalizedAnimationTime)
     {
+        #if UNITY_EDITOR
         // Debug.Log($"Setting animation frame for {animationName} | pos: {Position} | dir: {Direction}");
         if (_arrowAnimator != null) 
         {
@@ -134,5 +135,6 @@ public class RoadTile : MonoBehaviour
             var spriteKey = keyframes.First().value as Sprite;
             _arrowSprite.sprite = spriteKey;
         }
+        #endif
     }
 }

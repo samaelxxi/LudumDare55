@@ -175,6 +175,7 @@ public class Piggy : MonoBehaviour
         });
     }
 
+    #if UNITY_EDITOR
     void OnDrawGizmosSelected()
     {
         if (_currentPath == null || _currentPath.Count == 0)
@@ -189,4 +190,5 @@ public class Piggy : MonoBehaviour
         for (int i = 0; i < _currentPath.Count - 1; i++)
             Handles.Label(_currentPath[i].transform.position, i.ToString());
     }
+    #endif
 }
