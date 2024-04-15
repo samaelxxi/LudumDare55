@@ -89,21 +89,12 @@ public class Game : Singleton<Game>
 
     void Start()
     {
-        Game.Instance.AudioManager.Play("piggyHarvest2", loop: true);
+        Game.Instance.AudioManager.Play("piggyHarvest2", loop: true, volume: 0.6f);
     }
 
     void DetectLevelsNumber()
     {
-        int level = 1;
-        while (true)
-        {
-            _maxLevel = level;
-            if (!SceneManager.GetSceneByName("Level" + (level+1)).IsValid())
-                break;
-            level++;
-            if (level > 100)
-                break;
-        }
+        _maxLevel = PiggyEvolutions.LevelsNum;
         Debug.Log("Found " + _maxLevel + " levels");
     }
 
@@ -149,7 +140,6 @@ public class Game : Singleton<Game>
 
     void StartLevel()
     {
-        Debug.Log("Starting level");
         _level = FindFirstObjectByType<Level>();
         _level.OnLevelCompleted += CompleteLevel;
         _state = GameState.Harvest;
@@ -158,7 +148,7 @@ public class Game : Singleton<Game>
 
     void CompleteLevel()
     {
-        Debug.Log("Level completed" + _currentLevel);
+        Debug.Log("Level completed" + _currentLevel + " totalLevels: " + _maxLevel);
         _currentLevel = Mathf.Min(_currentLevel + 1, _maxLevel);
         _level = null;
         GoToEvolutionsScene();

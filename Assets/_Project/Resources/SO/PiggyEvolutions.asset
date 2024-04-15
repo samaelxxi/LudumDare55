@@ -30,3 +30,4 @@ MonoBehaviour:
   <BasePiggyCost>k__BackingField: 40
   <ExtraNewPiggyCost>k__BackingField: 5
   <MaxPiggies>k__BackingField: 15
+  <LevelsNum>k__BackingField: 3

@@ -75,18 +75,18 @@ public class RoadTile : MonoBehaviour
         else
             manager = FindObjectOfType<RoadManager>();
 
-        var leftNeigh = manager.GetNeighbour(this, RoadDirection.Left);
+        var leftNeigh = manager.GetNeighbourTile(this, RoadDirection.Left);
         if (leftNeigh != null && (leftNeigh.Direction == RoadDirection.Right || leftNeigh.IsSwitchable))
             triggerName = "Left";
         if (triggerName == "")
         {
-            var topNeigh = manager.GetNeighbour(this, RoadDirection.Up);
+            var topNeigh = manager.GetNeighbourTile(this, RoadDirection.Up);
             if (topNeigh != null && (topNeigh.Direction == RoadDirection.Down || topNeigh.IsSwitchable))
                 triggerName = "Top";
         }
         if (triggerName == "")
         {
-            var bottomNeigh = manager.GetNeighbour(this, RoadDirection.Down);
+            var bottomNeigh = manager.GetNeighbourTile(this, RoadDirection.Down);
             if (bottomNeigh != null && (bottomNeigh.Direction == RoadDirection.Up || bottomNeigh.IsSwitchable))
                 triggerName = "Down";
         }

@@ -63,6 +63,7 @@ public class RoadManager : MonoBehaviour
         return null;
     }
 
+
     public void TrySwitchRoadTileAt(Vector3 position)
     {
         var roadTile = GetRoadTileAt(position);
@@ -74,10 +75,10 @@ public class RoadManager : MonoBehaviour
                 if (newDirection == RoadTile.RoadDirection.Left)
                     continue;
                 var neighbourPos = roadTile.Position + RoadTile.Directions[newDirection];
-                var nextTile = GetNeighbour(roadTile, newDirection);
+                var nextTile = GetNeighbourTile(roadTile, newDirection);
                 if (nextTile == null)
                     continue;
-                if (GetNeighbour(nextTile, nextTile.Direction) == roadTile)
+                if (GetNeighbourTile(nextTile, nextTile.Direction) == roadTile)
                     continue;
                 if (_roadTiles.ContainsKey(neighbourPos))
                 {
@@ -89,7 +90,7 @@ public class RoadManager : MonoBehaviour
         }
     }
 
-    public RoadTile GetNeighbour(RoadTile roadTile, RoadTile.RoadDirection direction)
+    public RoadTile GetNeighbourTile(RoadTile roadTile, RoadTile.RoadDirection direction)
     {
         var neighbourPos = roadTile.Position + RoadTile.Directions[direction];
         if (_roadTiles.ContainsKey(neighbourPos))

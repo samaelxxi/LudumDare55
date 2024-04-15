@@ -11,6 +11,7 @@ public class Doggie : PiggyScarer
 
     protected override void Attack()
     {
+        _lastAttackTime = Time.time;
         _animator.SetTrigger("Bark");
         this.InSeconds(4.0f/6.0f, delegate
         {
@@ -20,6 +21,7 @@ public class Doggie : PiggyScarer
             // target.ReceiveNegativeVibes(_damage);
             AttackAOE();
             Game.Instance.AudioManager.Play("Bark1", pitch: Random.Range(0.9f, 1.1f));
+
         });
     }
 }

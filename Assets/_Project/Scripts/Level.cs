@@ -111,7 +111,7 @@ public class Level : MonoBehaviour
 
     public bool IsLevelCompleted()
     {
-        return _summonedPiggies.Count == Game.Instance.PiggiesQuantity && 
+        return _summonedPiggyNames.Count == Game.Instance.PiggiesQuantity && 
                 _summonedPiggies.All(piggy => piggy.IsFinishedHarvesting);
     }
 
