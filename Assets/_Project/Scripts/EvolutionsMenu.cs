@@ -41,6 +41,8 @@ public class EvolutionsMenu : MonoBehaviour
             _buyNewPiggyButton.interactable = false;
 
         Game.Instance.OnMouseClick += OnMouseClick;
+        //_selectedArrow.transform.DOMoveY(_selectedArrow.transform.localPosition.y + 0.2f, 1).SetLoops(-1, LoopType.Yoyo);
+
     }
 
     void OnDestroy()
@@ -50,7 +52,7 @@ public class EvolutionsMenu : MonoBehaviour
 
     void Update()
     {
-        _selectedArrow.transform.position = _selectedPiggy.transform.position + Vector3.up * 1;
+        _selectedArrow.transform.position = _selectedPiggy.transform.position + Vector3.up * 1.5f;
     }
 
     public void OnMouseClick(Vector3 mousePos)
