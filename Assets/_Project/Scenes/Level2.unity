@@ -11922,6 +11922,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _summonPoints:
   - {fileID: 361783787}
+  _levelData:
+    RequiredPigsToWin: 0
 --- !u!4 &832349453
 Transform:
   m_ObjectHideFlags: 0
