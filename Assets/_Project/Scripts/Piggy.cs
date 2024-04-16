@@ -179,6 +179,7 @@ public class Piggy : MonoBehaviour
             _moveTween.Kill();
             var newPos = endZone.GetFreePosition();
             _isEating = true;
+            GetSomeFood(_foodCapacity);
             transform.DOMove(newPos, Vector3.Distance(transform.position, newPos) / _speed)
                 .SetEase(Ease.Linear).OnComplete(() => StartCoroutine(StartEating()));
         }
@@ -193,6 +194,12 @@ public class Piggy : MonoBehaviour
     public void Oink()
     {
         var myOiks = Oinks.GetOinks(Data.Type, Data.Rank);
+        Game.Instance.AudioManager.PlayRange(myOiks, pitch: Random.Range(0.9f, 1.1f));
+    }
+
+    public static void Oink(PiggyData data)
+    {
+        var myOiks = Oinks.GetOinks(data.Type, data.Rank);
         Game.Instance.AudioManager.PlayRange(myOiks, pitch: Random.Range(0.9f, 1.1f));
     }
 
@@ -211,7 +218,6 @@ public class Piggy : MonoBehaviour
     {
         _spriteRenderer.transform.position = _spriteRenderer.transform.position.SetZ(_spriteRenderer.transform.position.y);
         // Debug.Log("Start eating");
-        GetSomeFood(_foodCapacity);
         while (true)
         {
             _shouldJump = false;

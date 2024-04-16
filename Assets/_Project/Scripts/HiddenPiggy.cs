@@ -9,7 +9,7 @@ public class HiddenPiggy : MonoBehaviour
 
     void Start()
     {
-        _nextJumpTime = Random.Range(10, 20f);
+        _nextJumpTime = Random.Range(7, 14);
     }
 
     void Update()
@@ -17,7 +17,7 @@ public class HiddenPiggy : MonoBehaviour
         _nextJumpTime -= Time.deltaTime;
         if (_nextJumpTime <= 0)
         {
-            _nextJumpTime = Random.Range(10, 20f);
+            _nextJumpTime = Random.Range(7, 14);
             transform.DOJump(transform.position, 0.5f, 1, 0.5f);
         }
     }

@@ -164,6 +164,12 @@ public class Game : Singleton<Game>
     void CompleteLevel()
     {
         Debug.Log("Level completed" + _currentLevel + " totalLevels: " + _maxLevel);
+        if (_currentLevel == _maxLevel)
+        {
+            Debug.Log("Game completed");
+            SceneManager.LoadScene("Final");
+            return;
+        }
         _currentLevel = Mathf.Min(_currentLevel + 1, _maxLevel);
         PiggiesToAdd = _level.PiggiesReward;
         _player.ReceiveCorn(_level.TotalFoodCollected);

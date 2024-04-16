@@ -45,7 +45,7 @@ public class Goosey : PiggyScarer
         var targets = _piggies.Where(piggy => piggy.CanBeScared);
 
         // pick closest piggy
-        Piggy _target = targets.OrderBy(p => Vector3.Distance(transform.position, p.transform.position)).FirstOrDefault();
+        _target = targets.OrderBy(p => Vector3.Distance(transform.position, p.transform.position)).FirstOrDefault();
 
         // Piggy target = targets.ElementAt(Random.Range(0, targets.Count()));
         RoadTile targetTile = roadManager.GetRoadTileAt(_target.transform.position);
@@ -125,6 +125,7 @@ public class Goosey : PiggyScarer
 
     void DamageAllOnTile(RoadTile tile)
     {
+        Debug.Log("DamageAllOnTile");
         _target.ReceiveNegativeVibes(_damage);
         if (tile == null)
         {

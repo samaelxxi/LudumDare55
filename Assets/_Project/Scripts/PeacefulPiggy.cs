@@ -9,9 +9,13 @@ public class PeacefulPiggy : MonoBehaviour
     [SerializeField] SpriteRenderer _spriteRenderer;
 
 
+    public SpriteRenderer SpriteRenderer => _spriteRenderer;
+
     public PiggyData Data => _data;
     BoxCollider2D _walkArea;
 
+
+    CircleCollider2D _circleCollider;
 
     float _waitTimer;
     bool _isWalking = false;
@@ -34,10 +38,23 @@ public class PeacefulPiggy : MonoBehaviour
         SetData(_data);
     }
 
+    [SerializeField] AnimationCurve _jumpCurve;
+
     void Start()
     {
         _waitTimer = Random.Range(3.0f, 8.0f);
         _spriteRenderer.flipX = Random.Range(0, 2) == 0;
+        _circleCollider = GetComponent<CircleCollider2D>();
+    }
+
+    float _jumpTime = 0;
+
+    bool _isEndPiggy = false;
+    public void SetToEnd()
+    {
+        _isEndPiggy = true;
+        StartCoroutine(Oinkaninonining());
+        _waitTimer = 0;
     }
 
     void Update()
@@ -51,12 +68,37 @@ public class PeacefulPiggy : MonoBehaviour
         else
             Move();
 
+        // _spriteRenderer.transform.position = _spriteRenderer.transform.position.SetZ(transform.position.y);
+
+        if (_isWalking || _isEndPiggy)
+        {
+            _jumpTime += Time.deltaTime;
+            float jumpLength = 1 / _data.Speed;
+            float jumpHeight = Mathf.Max(jumpLength - 0.1f, 0.2f);
+            float y = _jumpCurve.Evaluate(_jumpTime / jumpLength);
+            var newPos = _spriteRenderer.transform.localPosition.SetY(y * jumpHeight + 0.2f);
+            _spriteRenderer.transform.localPosition = Vector3.Lerp(_spriteRenderer.transform.localPosition, newPos, 0.3f);
+            _circleCollider.offset = new Vector2(0, y * 0.5f);
+            if (_jumpTime >= jumpLength)
+                _jumpTime = 0;
+        }
         _spriteRenderer.transform.position = _spriteRenderer.transform.position.SetZ(transform.position.y);
+    }
+
+    IEnumerator Oinkaninonining()
+    {
+        while (true)
+        {
+            yield return new WaitForSeconds(Random.Range(4, 7));
+            Piggy.Oink(Data);
+        }
     }
 
     void Move()
     {
         var ds = _data.Speed * Time.deltaTime;
+        if (_isEndPiggy)
+            ds *= 2;
         var direction = _targetPos - transform.position;
         float distance = Vector3.Distance(transform.position.SetZ(0), _targetPos.SetZ(0));
         if (distance < ds)

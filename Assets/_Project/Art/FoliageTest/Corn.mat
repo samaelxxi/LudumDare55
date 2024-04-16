@@ -71,6 +71,8 @@ Material:
     m_Ints: []
     m_Floats:
     - _EnableExternalAlpha: 0
+    - _QueueControl: 0
+    - _QueueOffset: 0
     - _WindScale: 1
     - _WindSpeed: 1
     - _WindStrength: 0.1

@@ -47,8 +47,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 59561578086795a41a08cca2d3522bcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _damage: 5
-  _rechargeTime: 1
+  _damage: 4
+  _rechargeTime: 1.5
   _attackType: 0
   _animator: {fileID: 3585856138291379029}
   _stonePrefab: {fileID: 1024847614036328790, guid: ee8215f2a5a03b44ba43bad8c508db1e, type: 3}

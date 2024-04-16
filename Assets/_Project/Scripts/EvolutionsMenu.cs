@@ -51,7 +51,7 @@ public class EvolutionsMenu : MonoBehaviour
 
     void Update()
     {
-        _selectedArrow.transform.position = _selectedPiggy.transform.position + Vector3.up * 1.5f;
+        _selectedArrow.transform.position = _selectedPiggy.SpriteRenderer.transform.position + Vector3.up * 1.5f;
     }
 
     public void OnMouseClick(Vector3 mousePos)

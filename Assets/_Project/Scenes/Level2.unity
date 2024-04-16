@@ -12332,6 +12332,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _summonPoints:
   - {fileID: 361783787}
+  - {fileID: 989336092}
   _levelData:
     RequiredPigsToWin: 2
     PiggiesReward: 1
@@ -12724,6 +12725,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3325908582863663808, guid: 02016e0f2eb916349bb3aa3f753ca895, type: 3}
   m_PrefabInstance: {fileID: 989336090}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &989336092 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5671920834336898320, guid: 02016e0f2eb916349bb3aa3f753ca895, type: 3}
+  m_PrefabInstance: {fileID: 989336090}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 487c79c0be49d364fb8ae7999720d7c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &990403823
 GameObject:
   m_ObjectHideFlags: 0
