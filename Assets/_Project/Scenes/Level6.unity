@@ -15349,6 +15349,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelUI
       objectReference: {fileID: 0}
+    - target: {fileID: 6050283531118746487, guid: de19f5b8e7099844bb72375dd9140f64, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: EndLevelClicked
+      objectReference: {fileID: 0}
     - target: {fileID: 8937507073256176716, guid: de19f5b8e7099844bb72375dd9140f64, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

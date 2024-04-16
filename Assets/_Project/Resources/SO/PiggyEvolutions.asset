@@ -30,5 +30,5 @@ MonoBehaviour:
   <BasePiggyCost>k__BackingField: 1
   <ExtraNewPiggyCost>k__BackingField: 0
   <MaxPiggies>k__BackingField: 15
-  <LevelsNum>k__BackingField: 7
+  <LevelsNum>k__BackingField: 6
   <StartFood>k__BackingField: 0

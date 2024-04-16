@@ -11681,14 +11681,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1201714435540432080, guid: 78bf2268656054a42a3ea12b17ba22c8, type: 3}
-      propertyPath: _damage
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1201714435540432080, guid: 78bf2268656054a42a3ea12b17ba22c8, type: 3}
-      propertyPath: _rechargeTime
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 2387493687050799367, guid: 78bf2268656054a42a3ea12b17ba22c8, type: 3}
       propertyPath: m_Size.x
       value: 2.4
@@ -13918,14 +13910,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1201714435540432080, guid: 78bf2268656054a42a3ea12b17ba22c8, type: 3}
-      propertyPath: _damage
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 1201714435540432080, guid: 78bf2268656054a42a3ea12b17ba22c8, type: 3}
-      propertyPath: _rechargeTime
-      value: 0.5
-      objectReference: {fileID: 0}
     - target: {fileID: 2387493687050799367, guid: 78bf2268656054a42a3ea12b17ba22c8, type: 3}
       propertyPath: m_Size.x
       value: 2.1480212

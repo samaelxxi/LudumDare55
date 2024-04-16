@@ -81,6 +81,22 @@ public class Level : MonoBehaviour
             _currentHappyPigsCount = HappyPigsCount();
             _ui.SetHappyPigsCount(_currentHappyPigsCount);
         }
+        CheckOinks();
+    }
+
+    float _oinkDelay = UnityEngine.Random.Range(3, 6);
+    private void CheckOinks()
+    {
+        if (Time.time - _oinkDelay > Piggy.LastTimeOiinked)
+        {
+            var pigs = _summonedPiggies.Where(piggy => piggy.CanBeScared || piggy.IsGotSomeFood);
+            if (pigs.Count() > 0)
+            {
+                var oinker = pigs.ElementAt(UnityEngine.Random.Range(0, _summonedPiggies.Count));
+                Piggy.MegaOink(oinker.Data);
+                _oinkDelay = UnityEngine.Random.Range(3, 6);
+            }
+        }
     }
 
     void ShowEndWindow()
@@ -97,7 +113,8 @@ public class Level : MonoBehaviour
     public bool IsLevelSucceed()
     {
         return _summonedPiggyNames.Count == Game.Instance.PiggiesQuantity && 
-                _summonedPiggies.Where(piggy => piggy.IsGotSomeFood).Count() >= _levelData.RequiredPigsToWin;
+                _summonedPiggies.Where(piggy => piggy.IsGotSomeFood).Count() >= _levelData.RequiredPigsToWin
+                && _summonedPiggies.All(piggy => piggy.IsFinishedHarvesting);
     }
 
     public int GetFoodCollected()

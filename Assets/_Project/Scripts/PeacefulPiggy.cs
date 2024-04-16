@@ -90,7 +90,7 @@ public class PeacefulPiggy : MonoBehaviour
         while (true)
         {
             yield return new WaitForSeconds(Random.Range(4, 7));
-            Piggy.Oink(Data);
+            Piggy.MegaOink(Data);
         }
     }
 

@@ -193,14 +193,15 @@ public class Piggy : MonoBehaviour
 
     public void Oink()
     {
-        var myOiks = Oinks.GetOinks(Data.Type, Data.Rank);
-        Game.Instance.AudioManager.PlayRange(myOiks, pitch: Random.Range(0.9f, 1.1f));
+        Piggy.MegaOink(Data);
     }
 
-    public static void Oink(PiggyData data)
+    public static float LastTimeOiinked = 0;
+    public static void MegaOink(PiggyData data)
     {
         var myOiks = Oinks.GetOinks(data.Type, data.Rank);
         Game.Instance.AudioManager.PlayRange(myOiks, pitch: Random.Range(0.9f, 1.1f));
+        LastTimeOiinked = Time.time;
     }
 
     void GetSomeFood(int food)

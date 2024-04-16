@@ -66,6 +66,6 @@ public class SummonPoint : MonoBehaviour
 
         piggy.transform.DOJump(piggy.transform.position, 1, 1, 1);
         Game.Instance.Level.AddHungryPiggy(piggy);
-        Game.Instance.AudioManager.PlayRange(Oinks.GetOinks(data.Type, data.Rank), pitch: Random.Range(0.9f, 1.1f));
+        Piggy.MegaOink(data);
     }
 }

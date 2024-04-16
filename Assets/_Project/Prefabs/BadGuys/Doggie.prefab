@@ -48,7 +48,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _damage: 4
-  _rechargeTime: 0.5
+  _rechargeTime: 0.7
   _attackType: 1
   _animator: {fileID: 4765561763791871073}
   _barkVFX: {fileID: 5069334932569727728}
