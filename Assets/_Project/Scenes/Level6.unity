@@ -12359,7 +12359,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 4
-  m_Sprite: {fileID: 1335817820, guid: af46344a75fd8f2468a2cd48705960f6, type: 3}
+  m_Sprite: {fileID: -1582627952, guid: af46344a75fd8f2468a2cd48705960f6, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -15349,10 +15349,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: LevelUI
       objectReference: {fileID: 0}
-    - target: {fileID: 6050283531118746487, guid: de19f5b8e7099844bb72375dd9140f64, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: EndLevelClicked
-      objectReference: {fileID: 0}
     - target: {fileID: 8937507073256176716, guid: de19f5b8e7099844bb72375dd9140f64, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -17920,7 +17916,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <IsSwitchable>k__BackingField: 0
-  <Direction>k__BackingField: 0
+  <Direction>k__BackingField: 1
   <IsEscapeTile>k__BackingField: 0
   _arrowSprite: {fileID: 1572854914236961141}
   _arrowAnimator: {fileID: 2572729384643347605}

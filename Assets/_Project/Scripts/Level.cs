@@ -48,6 +48,7 @@ public class Level : MonoBehaviour
         _ui.OnRestartLevelClicked += RestartLevel;
         _summonPoints[0].BeChosen();
         _chosenSummonPoint = _summonPoints[0];
+        _oinkDelay = UnityEngine.Random.Range(3, 6);
 
         Game.Instance.OnMouseClick += OnMouseClick;
         Game.Instance.OnKeyNumberPressed += KeyNumberPressed;
@@ -84,7 +85,7 @@ public class Level : MonoBehaviour
         CheckOinks();
     }
 
-    float _oinkDelay = UnityEngine.Random.Range(3, 6);
+    float _oinkDelay;
     private void CheckOinks()
     {
         if (Time.time - _oinkDelay > Piggy.LastTimeOiinked)
