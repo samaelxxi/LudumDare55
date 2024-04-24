@@ -114,8 +114,7 @@ public class Level : MonoBehaviour
     public bool IsLevelSucceed()
     {
         return _summonedPiggyNames.Count == Game.Instance.PiggiesQuantity && 
-                _summonedPiggies.Where(piggy => piggy.IsGotSomeFood).Count() >= _levelData.RequiredPigsToWin
-                && _summonedPiggies.All(piggy => piggy.IsFinishedHarvesting);
+                _summonedPiggies.Where(piggy => piggy.IsGotSomeFood).Count() >= _levelData.RequiredPigsToWin;
     }
 
     public int GetFoodCollected()
@@ -163,6 +162,7 @@ public class Level : MonoBehaviour
     public bool IsLevelCompleted()
     {
         return _summonedPiggyNames.Count == Game.Instance.PiggiesQuantity && 
+                _summonedPiggyNames.Count == _summonedPiggies.Count &&
                 _summonedPiggies.All(piggy => piggy.IsFinishedHarvesting);
     }
 
